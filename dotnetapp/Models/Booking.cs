@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace dotnetapp.Models
 {
@@ -19,7 +20,9 @@ namespace dotnetapp.Models
         public string BookingPurpose { get; set; }
         public string? AdditionalComments { get; set; }
 
+        [JsonIgnore]
         public User? User { get; set; }
+        [JsonIgnore]
         public Room? Room { get; set; }
     }
 }
