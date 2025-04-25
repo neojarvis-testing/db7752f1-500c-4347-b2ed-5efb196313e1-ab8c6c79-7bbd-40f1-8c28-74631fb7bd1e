@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace dotnetapp.Models
 {
@@ -20,5 +21,8 @@ namespace dotnetapp.Models
         public string Description { get; set; }
         public string Facilities { get; set; }
         public string ImageUrl { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Booking>? Bookings {get; set;}
     }
 }
