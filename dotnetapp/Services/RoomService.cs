@@ -36,8 +36,8 @@ namespace dotnetapp.Services
         int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == room.HotelName);
         if (roomCount > 10)
         {
-           // throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
-           return false;
+           throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+          
         }
  
         _context.Rooms.Add(room);
