@@ -17,6 +17,7 @@ speed-measure-plugin*.json
 TestProject/
 bin/
 obj/
+
 dotnetapp.sln
 appsettings.json
 Migrations/
@@ -51,3 +52,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
