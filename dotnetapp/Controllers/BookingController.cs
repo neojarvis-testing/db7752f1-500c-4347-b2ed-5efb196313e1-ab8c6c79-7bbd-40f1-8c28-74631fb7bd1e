@@ -3,82 +3,87 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using dotnetapp.Data;
 using dotnetapp.Models;
-[ApiController]
-[Route("api/booking")]
-public class BookingController : ControllerBase
+using dotnetapp.Services;
+
+namespace dotnetapp.Controllers
 {
-    public BookingService _bookingService;
+    [ApiController]
+    [Route("api/booking")]
+    public class BookingController : ControllerBase
+    {
+        public BookingService _bookingService;
 
-    public BookingController(BookingService bookingService)
-    {
-        _bookingService = bookingService;
-    }
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
-    {
-        var bookings = await _bookingService.GetAllBookings();
-        return Ok(bookings); 
-    }
-
-    [HttpGet("user/{userId}")]
-    public async Task<ActionResult<IEnumerable<Booking>>> GetBookingsByUserId(int userId)
-    {
-        var bookings = await _bookingService.GetBookingsByUserId(userId);
-        return Ok(bookings); 
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> AddBooking([FromBody] Booking booking)
-    {
-        try
+        public BookingController(BookingService bookingService)
         {
-            var result = await _bookingService.AddBooking(booking);
-            if (result)
+            _bookingService = bookingService;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
+        {
+            var bookings = await _bookingService.GetAllBookings();
+            return Ok(bookings); 
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookingsByUserId(int userId)
+        {
+            var bookings = await _bookingService.GetBookingsByUserId(userId);
+            return Ok(bookings); 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddBooking([FromBody] Booking booking)
+        {
+            try
             {
-                return Ok("Booking added successfully"); 
-            }
+                var result = await _bookingService.AddBooking(booking);
+                if (result)
+                {
+                    return Ok("Booking added successfully"); 
+                }
 
-            return BadRequest("Failed to add booking");
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
-        }
-    }
-    [HttpPut("{bookingId}")]
-    public async Task<ActionResult> UpdateBooking(int bookingId, [FromBody] Booking booking)
-    {
-        try
-        {
-            var result = await _bookingService.UpdateBooking(bookingId, booking);
-            if (result)
+                return BadRequest("Failed to add booking");
+            }
+            catch (Exception ex)
             {
-                return Ok("Booking updated successfully"); 
+                return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
             }
-
-            return NotFound("Cannot find the booking"); 
         }
-        catch (Exception ex)
+        [HttpPut("{bookingId}")]
+        public async Task<ActionResult> UpdateBooking(int bookingId, [FromBody] Booking booking)
         {
-            return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
-        }
-    }
-    [HttpDelete("{bookingId}")]
-    public async Task<ActionResult> DeleteBooking(int bookingId)
-    {
-        try
-        {
-            var result = await _bookingService.DeleteBooking(bookingId);
-            if (result)
+            try
             {
-                return Ok("Booking deleted successfully"); 
-            }
+                var result = await _bookingService.UpdateBooking(bookingId, booking);
+                if (result)
+                {
+                    return Ok("Booking updated successfully"); 
+                }
 
-            return NotFound("Cannot find the booking"); 
+                return NotFound("Cannot find the booking"); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
+            }
         }
-        catch (Exception ex)
+        [HttpDelete("{bookingId}")]
+        public async Task<ActionResult> DeleteBooking(int bookingId)
         {
-            return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
+            try
+            {
+                var result = await _bookingService.DeleteBooking(bookingId);
+                if (result)
+                {
+                    return Ok("Booking deleted successfully"); 
+                }
+
+                return NotFound("Cannot find the booking"); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
+            }
         }
     }
 }
