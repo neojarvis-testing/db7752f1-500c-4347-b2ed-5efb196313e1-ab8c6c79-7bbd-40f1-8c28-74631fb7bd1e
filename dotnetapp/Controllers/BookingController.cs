@@ -1,8 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using dotnetapp.Data;
+using Microsoft.EntityFrameworkCore;
+using dotnetapp.Services;
 using dotnetapp.Models;
+using Microsoft.AspNetCore.Authorization;
+
 [ApiController]
 [Route("api/booking")]
 public class BookingController : ControllerBase
@@ -30,6 +35,7 @@ public class BookingController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> AddBooking([FromBody] Booking booking)
     {
+        System.Console.WriteLine(".............................>>>>");
         try
         {
             var result = await _bookingService.AddBooking(booking);
