@@ -16,10 +16,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UseraddbookingComponent } from './components/useraddbooking/useraddbooking.component';
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
-import { ViewmybookingComponent } from './viewmybooking/viewmybooking.component';
-import { UserviewbookingComponent } from './components/userviewbooking/userviewbooking.component';
+
 import { UserviewroomComponent } from './components/userviewroom/userviewroom.component';
-import { UsernavComponent } from './usernav/usernav.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
 
@@ -39,10 +37,7 @@ import { UserviewmybookingComponent } from './components/userviewmybooking/userv
     RegistrationComponent,
     UseraddbookingComponent,
     UseraddfeedbackComponent,
-    ViewmybookingComponent,
-    UserviewbookingComponent,
     UserviewroomComponent,
-    UsernavComponent,
     UserviewfeedbackComponent,
     UserviewmybookingComponent
   ],

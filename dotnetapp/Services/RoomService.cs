@@ -34,7 +34,8 @@ namespace dotnetapp.Services
         if (roomCount > 10)
         {
            throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
-           return false;
+
+
         }
  
         _context.Rooms.Add(room);

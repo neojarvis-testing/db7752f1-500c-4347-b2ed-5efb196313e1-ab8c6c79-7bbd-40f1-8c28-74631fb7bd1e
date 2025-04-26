@@ -8,7 +8,7 @@ namespace dotnetapp.Models
 {
     public class UserRoles
     {
-        public string Admin { get; set; }
-        public string Users { get; set; }
+        public string Admin { get; set; } = "Admin";
+        public string Users { get; set; }   = "User";
     }
 }

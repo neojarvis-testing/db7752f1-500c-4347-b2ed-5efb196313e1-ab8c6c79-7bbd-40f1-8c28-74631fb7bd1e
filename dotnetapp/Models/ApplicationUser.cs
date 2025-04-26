@@ -9,7 +9,9 @@ namespace dotnetapp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [MaxLength(30)]
+        [Required(ErrorMessage = "Name is required")]
+        [MaxLength(256)]
         public string Name { get; set; }
+    
     }
 }
