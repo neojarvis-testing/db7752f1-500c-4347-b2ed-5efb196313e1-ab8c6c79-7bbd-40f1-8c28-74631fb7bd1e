@@ -10,7 +10,7 @@ using dotnetapp.Services;
 namespace dotnetapp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -23,6 +23,10 @@ namespace dotnetapp.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            System.Console.WriteLine("-------------");
+            System.Console.WriteLine(model.Email);
+            System.Console.WriteLine(model.Password);
+            System.Console.WriteLine("=================");
             try
             {
                 if (!ModelState.IsValid)
@@ -43,6 +47,10 @@ namespace dotnetapp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User model)
         {
+            System.Console.WriteLine("-------------");
+            System.Console.WriteLine(model.Email);
+            System.Console.WriteLine(model.Password);
+            System.Console.WriteLine("=================");
             try
             {
                 if (!ModelState.IsValid)
