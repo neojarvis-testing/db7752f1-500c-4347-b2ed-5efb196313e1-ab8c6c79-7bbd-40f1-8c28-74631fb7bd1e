@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using dotnetapp.Data;
-using dotnetapp.Models;
+using Microsoft.EntityFrameworkCore;
 using dotnetapp.Services;
+using dotnetapp.Models;
+
 
 namespace dotnetapp.Controllers
 {
@@ -13,10 +16,12 @@ namespace dotnetapp.Controllers
     {
         public BookingService _bookingService;
 
+
         public BookingController(BookingService bookingService)
-        {
+         {
             _bookingService = bookingService;
         }
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
         {
