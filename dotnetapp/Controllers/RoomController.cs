@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using dotnetapp.Services;
 using dotnetapp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotnetapp.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "Admin")]
     [Route("api/room")]
     public class RoomController : ControllerBase
     {
