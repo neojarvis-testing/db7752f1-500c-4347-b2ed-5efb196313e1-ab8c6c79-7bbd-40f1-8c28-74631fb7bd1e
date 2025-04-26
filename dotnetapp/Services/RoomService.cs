@@ -30,59 +30,60 @@ namespace dotnetapp.Services
 
         public async Task<bool> AddRoom(Room room)
         {
-        int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == room.HotelName);
-        if (roomCount > 10)
+            int roomCount = await _context.Rooms.Where(r => r.HotelName.ToLower() == room.HotelName.ToLower()).SumAsync(r => r.NoOfRooms);
+                // System.Console.WriteLine("-----------------------");
+                // System.Console.WriteLine(roomCount);
+            if ((roomCount + room.NoOfRooms) > 10)
+            {
+              throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+                // return false;
+            }
+    
+            _context.Rooms.Add(room);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+ 
+         public async Task<bool> UpdateRoom(int roomId, Room updatedRoom)
         {
-           throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+            var existingRoom = await _context.Rooms.FindAsync(roomId);
+            if (existingRoom == null)
+            {
+                return false;
+            }
+    
+            int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == updatedRoom.HotelName);
+            if (roomCount > 10)
+            {
+                throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+                return false;
+            }
+    
+            _context.Entry(existingRoom).CurrentValues.SetValues(updatedRoom);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+ 
+        public async Task<bool> DeleteRoom(int roomId)
+        {
+            var room = await _context.Rooms.FindAsync(roomId);
+            if (room == null)
+            {
+                return false;
+            }
+    
+            bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId);
+            if (isReferenced)
+            {
+                throw new RoomException("Room cannot be deleted as it is referenced in a booking.");
+                return false;
+            }
+    
+            _context.Rooms.Remove(room);
+            await _context.SaveChangesAsync();
+            return true;
+        }
 
-
-        }
- 
-        _context.Rooms.Add(room);
-        await _context.SaveChangesAsync();
-        return true;
-        }
- 
-    public async Task<bool> UpdateRoom(int roomId, Room updatedRoom)
-    {
-        var existingRoom = await _context.Rooms.FindAsync(roomId);
-        if (existingRoom == null)
-        {
-            return false;
-        }
- 
-        int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == updatedRoom.HotelName);
-        if (roomCount > 10)
-        {
-            throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
-            return false;
-        }
- 
-        _context.Entry(existingRoom).CurrentValues.SetValues(updatedRoom);
-        await _context.SaveChangesAsync();
-        return true;
     }
- 
-    public async Task<bool> DeleteRoom(int roomId)
-    {
-        var room = await _context.Rooms.FindAsync(roomId);
-        if (room == null)
-        {
-            return false;
-        }
- 
-        bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId);
-        if (isReferenced)
-        {
-            throw new RoomException("Room cannot be deleted as it is referenced in a booking.");
-            return false;
-        }
- 
-        _context.Rooms.Remove(room);
-        await _context.SaveChangesAsync();
-        return true;
-    }
-
-}
 
 }
