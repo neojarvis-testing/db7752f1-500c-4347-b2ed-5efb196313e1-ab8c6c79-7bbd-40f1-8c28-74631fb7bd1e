@@ -9,7 +9,7 @@ using dotnetapp.Services;
 namespace dotnetapp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/feedback")]
     public class FeedbackController : ControllerBase
     {
     private readonly FeedbackService _feedbackService;
