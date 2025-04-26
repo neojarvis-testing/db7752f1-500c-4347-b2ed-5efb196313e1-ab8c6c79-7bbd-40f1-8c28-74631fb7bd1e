@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using dotnetapp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace dotnetapp.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -21,6 +22,7 @@ namespace dotnetapp.Data
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {  
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Booking>()
         .HasOne(b => b.Room)
         .WithMany(r => r.Bookings)
