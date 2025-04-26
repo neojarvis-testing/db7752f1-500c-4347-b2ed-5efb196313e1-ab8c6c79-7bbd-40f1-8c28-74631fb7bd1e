@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using dotnetapp.Data;
 using dotnetapp.Models;
 [ApiController]
-[Route("api/[controller]")]
-public class BookingsController : ControllerBase
+[Route("api/booking")]
+public class BookingController : ControllerBase
 {
     public BookingService _bookingService;
 
-    public BookingsController(BookingService bookingService)
+    public BookingController(BookingService bookingService)
     {
         _bookingService = bookingService;
     }
