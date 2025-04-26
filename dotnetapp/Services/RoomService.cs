@@ -25,10 +25,7 @@ namespace dotnetapp.Services
 
         public async Task<Room> GetRoomById(int roomId)
         {
-            var res=await _context.Rooms.FindAsync(roomId);
-            if(res!=null)
-                return(res);
-            return null;
+            return await _context.Rooms.FindAsync(roomId);
         }
 
         public async Task<bool> AddRoom(Room room)
@@ -37,6 +34,8 @@ namespace dotnetapp.Services
         if (roomCount > 10)
         {
            throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+
+
         }
  
         _context.Rooms.Add(room);

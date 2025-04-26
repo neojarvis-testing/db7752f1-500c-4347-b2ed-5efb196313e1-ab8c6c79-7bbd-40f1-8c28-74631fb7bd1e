@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using dotnetapp.Data;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using dotnetapp.Models;
 using dotnetapp.Services;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +22,7 @@ builder.Configuration
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddDbContext<ApplicationDbContext>(e=> e.UseSqlServer(builder.Configuration.GetConnectionString("myconn")));
-    
+    builder.Services.AddScoped<RoomService>();
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddAuthentication(options =>
@@ -40,6 +42,7 @@ builder.Configuration
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
             };
     });
+
 
     builder.Services.AddSwaggerGen();
 
