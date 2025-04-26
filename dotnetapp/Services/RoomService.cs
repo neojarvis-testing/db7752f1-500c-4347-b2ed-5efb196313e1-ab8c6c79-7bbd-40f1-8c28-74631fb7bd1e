@@ -25,10 +25,7 @@ namespace dotnetapp.Services
 
         public async Task<Room> GetRoomById(int roomId)
         {
-            var res=await _context.Rooms.FindAsync(roomId);
-            if(res!=null)
-                return(res);
-            return null;
+            return await _context.Rooms.FindAsync(roomId);
         }
 
         public async Task<bool> AddRoom(Room room)
@@ -36,7 +33,7 @@ namespace dotnetapp.Services
         int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == room.HotelName);
         if (roomCount > 10)
         {
-           // throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+           throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
            return false;
         }
  
@@ -56,7 +53,7 @@ namespace dotnetapp.Services
         int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == updatedRoom.HotelName);
         if (roomCount > 10)
         {
-            //throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+            throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
             return false;
         }
  
@@ -76,7 +73,7 @@ namespace dotnetapp.Services
         bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId);
         if (isReferenced)
         {
-            //throw new RoomException("Room cannot be deleted as it is referenced in a booking.");
+            throw new RoomException("Room cannot be deleted as it is referenced in a booking.");
             return false;
         }
  
