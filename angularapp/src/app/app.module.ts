@@ -20,6 +20,8 @@ import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfe
 import { UserviewroomComponent } from './components/userviewroom/userviewroom.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { UserviewmybookingComponent } from './components/userviewmybooking/userv
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
