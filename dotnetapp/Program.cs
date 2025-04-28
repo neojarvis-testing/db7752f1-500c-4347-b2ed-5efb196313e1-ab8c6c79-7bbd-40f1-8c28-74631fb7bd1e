@@ -26,6 +26,7 @@ builder.Configuration
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<BookingService>();
+    builder.Services.AddScoped<FeedbackService>();
     builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

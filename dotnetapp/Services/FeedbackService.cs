@@ -13,17 +13,25 @@ namespace dotnetapp.Services
        public FeedbackService(ApplicationDbContext context)
        {
            _context = context;
-        }
+        }               
         public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
         {
             return await _context.Feedbacks.ToListAsync();
         }
-        public async Task<IEnumerable<Feedback>> GetFeedbacksByUserId(int userId)
+        public async Task<object> GetFeedbacksByUserId(int userId)
         {
-            return await _context.Feedbacks
-            .Where(f => f.UserId == userId).ToListAsync();
-            
-        }
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == userId);
+            if (!userExists)
+                {
+                    return new { Message = "User not found" };
+                }
+
+            var feedbacks = await _context.Feedbacks
+            .Where(f => f.UserId == userId)
+            .ToListAsync();
+            return feedbacks.Any() ? (object)feedbacks : new { Message = "No feedbacks found for this user" };
+}
+
         public async Task<bool> AddFeedback(Feedback feedback)
         {
             await _context.Feedbacks.AddAsync(feedback);
