@@ -1,13 +1,33 @@
-<h2>Login</h2>
-    <div id="loginComponent">
-        <form id="loginForm">
-            <label >Email*</label><br>
-            <input type="email" id="email" required><br>
-            
-            <label >Password*</label><br>
-            <input type="password" id="password" required><br>
-            
-            <button type="submit" onclick="">Login</button>
-        </form>
-        <p>Don't have an account? <a href="register.html">Register here</a></p>
-    </div>
+
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="card p-4 shadow-lg login-container">
+    <h2 class="text-center mb-4">Login</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input type="text" id="username" name="Username" class="form-control"
+          [(ngModel)]="loginModel.Email" required #username="ngModel" 
+          [ngModelOptions]="{standalone : true}" />
+
+        <div class="text-danger small" *ngIf="username.invalid && (username.dirty || username.touched)">
+          Username is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" name="Password" class="form-control"
+          [(ngModel)]="loginModel.Password" required #password="ngModel" 
+          [ngModelOptions]="{standalone : true}" />
+
+        <div class="text-danger small" *ngIf="password.invalid && (password.dirty || password.touched)">
+          Password is required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>
+
