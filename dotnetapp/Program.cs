@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using dotnetapp.Data;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using dotnetapp.Models;
@@ -16,7 +17,18 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
+
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,6 +39,7 @@ builder.Configuration
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<BookingService>();
     builder.Services.AddScoped<FeedbackService>();
+
     builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,6 +70,7 @@ builder.Configuration
         app.UseSwaggerUI();
     }
 
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();

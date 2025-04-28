@@ -1,0 +1,27 @@
+
+
+
+<ng-container *ngIf="activeNavbar === 'app'">
+  
+  <app-navbar></app-navbar>
+  
+</ng-container>
+
+<ng-container *ngIf="activeNavbar === 'user'">
+  
+  <app-usernav></app-usernav>
+  
+</ng-container>
+
+<ng-container *ngIf="activeNavbar === 'admin'">
+  <app-adminnav></app-adminnav>
+
+</ng-container>
+
+<div class="container mt-4">
+
+  <router-outlet></router-outlet>
+
+</div>
+
+
