@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usernav.component.css']
 })
 export class UsernavComponent implements OnInit {
+  logout() {
+    localStorage.clear();
+    window.location.href = '/login';
+  }
 
   constructor() { }
 
