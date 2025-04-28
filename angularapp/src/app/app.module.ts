@@ -19,6 +19,7 @@ import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfe
 import { UserviewroomComponent } from './components/userviewroom/userviewroom.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],
