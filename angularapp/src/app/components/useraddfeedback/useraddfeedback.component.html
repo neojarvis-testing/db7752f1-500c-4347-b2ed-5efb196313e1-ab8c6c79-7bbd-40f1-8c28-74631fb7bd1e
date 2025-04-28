@@ -1,19 +1,35 @@
 <div class="feedback-container">
-<h2>Add Feedback</h2>
-   <form #feedbackForm="ngForm" >
-      <div class="form-group">
-        <label for="feedback">Feedback</label>
-        <textarea id="feedback" name="feedback"  required></textarea>
-        <div *ngIf="feedbackForm.controls.feedback?.invalid && feedbackForm.controls.feedback?.touched" class="error-message">
-          Feedback is required
-        </div>
-      </div>
-      <!-- Post Feedback Button -->
-      <button type="submit" [disabled]="!feedbackForm.valid">Post Feedback</button>
-    </form>
-    <!-- Popup Message -->
-    <div  class="popup">
-      <p>Successfully Added!</p>
-      <button type="submit">Ok</button>
+  <h2>Add Feedback</h2>
+
+  <!-- Feedback Input -->
+  <div class="form-group">
+    <label for="feedback">Feedback</label><br>
+    <textarea
+      id="feedback"
+      name="feedback"
+      [(ngModel)]="feedbackText"
+      required
+      (blur)="feedbackTouched = true"
+    ></textarea>
+
+    <!-- Validation Message -->
+    <div *ngIf="feedbackTouched && feedbackText.trim() === ''" class="error-message">
+      Feedback is required
     </div>
   </div>
+
+  <!-- Submit Button -->
+  <button
+    type="button"
+    (click)="submitFeedback()"
+    [disabled]="feedbackText.trim() === ''"
+  >
+    Submit
+  </button>
+
+  <!-- Popup Message -->
+  <div *ngIf="showPopup" class="popup">
+    <p>Successfully Added!</p>
+    <button type="button" (click)="closePopup()">Ok</button>
+  </div>
+</div>
