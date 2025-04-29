@@ -10,6 +10,7 @@ export class AdminviewrequestedbookingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //
   }
 
 }

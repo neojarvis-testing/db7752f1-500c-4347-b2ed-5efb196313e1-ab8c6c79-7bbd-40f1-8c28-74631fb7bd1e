@@ -10,6 +10,7 @@ export class AdminaddroomComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //
   }
 
 }
