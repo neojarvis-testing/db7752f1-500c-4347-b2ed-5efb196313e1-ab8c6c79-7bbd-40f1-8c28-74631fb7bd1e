@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
    loginModel: Login= {
@@ -23,12 +23,13 @@ export class LoginComponent implements OnInit {
 
     
      login() { 
-    
+      console.log(this.loginModel);
+      
       this.authService.login(this.loginModel).subscribe( 
        response => { 
         console.log('Login successful', response); 
         const role = this.authService.getRole();
-        this.router.navigate([role === 'Admin' ? '/admin/home' : '/user/home']);
+        this.router.navigate([role === 'Admin' ? '/admin/dashboard' : '/user/home']);
        }, 
        error => { 
         console.log('Login failed', error); 

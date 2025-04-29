@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2 class="text-center text-primary">Available Rooms</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover shadow-sm">
+      <thead class="bg-success text-white">
+        <tr>
+          <th>Hotel Name</th>
+          <th>Room Type</th>
+          <th>No. of Rooms</th>
+          <th>Price/Night</th>
+          <th>Location</th>
+          <th>Bed Type</th>
+          <th>Facilities</th>
+          <th>Availability</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of rooms; let i = index">
+          <td>{{room?.hotelName}}</td>
+          <td>{{room?.roomType}}</td>
+          <td>{{room?.noOfRooms}}</td>
+          <td>₹{{room?.pricePerNight}}</td>
+          <td>{{room?.location}}</td>
+          <td>{{room?.bedType}}</td>
+          <td>{{room?.facilities}}</td>
+          <td>
+            <span class="badge" [ngClass]="room.isAvailable ? 'bg-success' : 'bg-danger'">
+              {{ room.isAvailable ? 'Available' : 'Not Available' }}
+            </span>
+          </td>
+          <td>
+            <img [src]="room.imageUrl" class="img-thumbnail" alt="Room Image">
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm mx-1" (click)="editRoom(room)">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteRoom(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+  </div>
+</div>

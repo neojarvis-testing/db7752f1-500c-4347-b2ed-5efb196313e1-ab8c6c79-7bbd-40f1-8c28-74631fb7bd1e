@@ -1,0 +1,31 @@
+.container {
+    max-width: 95%;
+  }
+  
+  h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    background-color: #fff;
+  }
+  
+  th {
+    text-align: center;
+  }
+  
+  td {
+    vertical-align: middle;
+  }
+  
+  .badge {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .btn-sm {
+    font-size: 13px;
+  }
+  

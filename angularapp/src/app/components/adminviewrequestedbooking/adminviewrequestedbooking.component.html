@@ -1,1 +1,50 @@
-<p>adminviewrequestedbooking works!</p>
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Manage Bookings</h2>
+  
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover shadow-sm">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Booking ID</th>
+            <th>User ID</th>
+            <th>Room ID</th>
+            <th>Check-In Date</th>
+            <th>Check-Out Date</th>
+            <th>Status</th>
+            <th>Special Requests</th>
+            <th>Booking Purpose</th>
+            <th>Additional Comments</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking?.bookingId }}</td>
+            <td>{{ booking?.userId }}</td>
+            <td>{{ booking?.roomId }}</td>
+            <td>{{ booking?.checkInDate }}</td>
+            <td>{{ booking?.checkOutDate }}</td>
+            <td>
+              <span class="badge" [ngClass]="booking.status === 'Confirmed' ? 'bg-success' : 'bg-danger'">
+                {{ booking.status === 'Confirmed' ? 'OK' : 'Rejected' }}
+              </span>
+            </td>
+            <td>{{ booking?.specialRequests }}</td>
+            <td>{{ booking?.bookingPurpose }}</td>
+            <td>{{ booking?.additionalComments }}</td>
+            <td>
+                <button *ngIf="booking.status !== 'Confirmed'" class="btn btn-success btn-sm mx-1" (click)="confirmBooking(booking)">
+                  Confirm
+                </button>
+                
+                <button *ngIf="booking.status !== 'Rejected'" class="btn btn-danger btn-sm mx-1" (click)="rejectBooking(booking)">
+                  Reject
+                </button>
+              </td>
+              
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

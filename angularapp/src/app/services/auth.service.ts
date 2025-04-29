@@ -36,12 +36,18 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           const decodedToken: any = this.decodeToken(response.token);
-          // console.log("----",decodedToken);
+          console.log("----",decodedToken);
+
+          // Storing key in Local Storage 
           localStorage.setItem(this.tokenKey, response.token);
+
+          
           const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-          const userName = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/name'];
+          const userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+
           localStorage.setItem('role', role);
           localStorage.setItem('UserName', userName);
+          
           this.userRoleSubject.next(role);
           // this.router.navigate(['']);
           // this.userIdSubject.next(decodedToken.id);

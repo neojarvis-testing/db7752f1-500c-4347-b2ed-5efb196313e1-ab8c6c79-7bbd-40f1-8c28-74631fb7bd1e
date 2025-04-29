@@ -22,6 +22,8 @@ import { UserviewmybookingComponent } from './components/userviewmybooking/userv
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     UseraddfeedbackComponent,
     UserviewroomComponent,
     UserviewfeedbackComponent,
-    UserviewmybookingComponent
+    UserviewmybookingComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

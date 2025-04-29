@@ -1,16 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3"> 
-  <a class="navbar-brand" routerLink="/admin/dashboard">Admin Dashboard</a>
-  
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ms-auto"> 
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/add-room">Home</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/add-room">Add Room</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/view-bookings">View Bookings</a></li>
-      <li class="nav-item"><button class="nav-link" (click)="logout()">Logout</button></li>
+<div class="d-flex">
+  <nav class="sidebar bg-dark vh-100 p-3">
+    <a class="navbar-brand text-white" routerLink="/admin/dashboard">Admin Dashboard</a>
+    <ul class="nav flex-column mt-3">
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/admin/dashboard">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/admin/add-room">Add Room</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/admin/view-bookings">View Bookings</a></li>
+      <li class="nav-item"><button class="nav-link text-danger" (click)="logout()">Logout</button></li>
     </ul>
+  </nav>
+
+  <div class="flex-grow-1 p-4">
+    <router-outlet></router-outlet>
   </div>
-</nav>
+</div>

@@ -1,11 +1,11 @@
-export interface Booking{
-    BookingId?:number
-    UserId:number;
-    RoomId:number;
-    CheckInDate:string;
-    CheckOutDate:string;
-    Status:string;
-    SpecialRequests:string;
-    BookingPurpose:string;
-    AdditionalComments?:string
+export interface Booking {
+    bookingId?: number;
+    userId: number;
+    roomId: number;
+    checkInDate: string;
+    checkOutDate: string;
+    status: string;
+    specialRequests: string;
+    bookingPurpose: string;
+    additionalComments?: string;
 }
