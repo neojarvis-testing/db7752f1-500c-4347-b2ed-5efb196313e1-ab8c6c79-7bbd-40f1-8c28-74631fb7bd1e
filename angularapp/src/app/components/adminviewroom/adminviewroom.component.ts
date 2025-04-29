@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Room } from 'src/app/models/room.model';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-adminviewroom',
@@ -6,11 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adminviewroom.component.css']
 })
 export class AdminviewroomComponent implements OnInit {
-
-  constructor() { }
-
   ngOnInit(): void {
-    //
+    throw new Error('Method not implemented.');
   }
 
+  
 }

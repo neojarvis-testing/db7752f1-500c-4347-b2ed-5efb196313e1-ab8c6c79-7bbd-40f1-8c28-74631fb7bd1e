@@ -11,10 +11,11 @@ import { Booking } from '../models/booking.model';
 export class RoomService {
 
   apiUrl:string = 'https://8080-eefafbfabdefeedbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
+  
   constructor(private client:HttpClient) { }
 
   private getAuthHeaders():HttpHeaders{
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     return new HttpHeaders({'Authorization':`Bearer ${token}`});
   }
 
@@ -40,6 +41,7 @@ export class RoomService {
 
   
   getAllBookings():Observable<Booking[]>{
+    
     return this.client.get<Booking[]>(`${this.apiUrl}/api/booking`, {headers: this.getAuthHeaders()});
   }
 

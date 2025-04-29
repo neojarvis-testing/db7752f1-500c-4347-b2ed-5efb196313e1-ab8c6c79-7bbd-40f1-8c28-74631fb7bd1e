@@ -17,13 +17,14 @@ import { UserviewroomComponent } from './components/userviewroom/userviewroom.co
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { ErrorComponent } from './components/error/error.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
 
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'admin/home', component: HomeComponent },
+  { path: 'admin/dashboard', component: DashboardComponent , canActivate:[AuthGuard]},
   { path: 'admin/add-room', component: AdminaddroomComponent, canActivate: [AuthGuard] },
   { path: 'admin/edit-room/:id', component: AdmineditroomComponent, canActivate: [AuthGuard] },
   { path: 'admin/view-rooms', component: AdminviewroomComponent, canActivate: [AuthGuard] },
