@@ -1,11 +1,11 @@
 <div class="container">
     <h2>HOTEL BOOKING HUB</h2>
     <h3>Registration</h3>
-    <form #registrationForm="ngForm" (ngSubmit)="onSubmit()" class="form">
+    <form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)" class="form">
         <div>
             <label for="username" class="form-label">Username</label>
-            <input class="form-control" type="text" id="username" name="username" [(ngModel)]="user.username" required (ngModelChange)="checkFormValidity()">
-            <div class="error-message" *ngIf="registrationForm.submitted && !user.username" style="color: red;">
+            <input class="form-control" type="text" id="username" name="username" [(ngModel)]="user.userName" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.userName" style="color: red;">
                 Username is required
             </div>
         </div>
@@ -37,28 +37,28 @@
 
         <div>
             <label for="confirm_password" class="form-label">Confirm Password</label>
-            <input class="form-control" type="password" id="confirm_password" name="confirm_password" [(ngModel)]="user.confirm_password" required (ngModelChange)="checkFormValidity()">
-            <div class="error-message" *ngIf="registrationForm.submitted && user.password !== user.confirm_password" style="color: red;">
+            <input class="form-control" type="password" id="confirm_password" name="confirm_password" [(ngModel)]="confirm_password" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && user.password !== confirm_password" style="color: red;">
                 Passwords must match
             </div>
         </div>
 
         <div>
             <label for="mobile_number" class="form-label">Mobile Number</label>
-            <input class="form-control" type="tel" id="mobile_number" name="mobile_number" [(ngModel)]="user.mobile_number" required (ngModelChange)="checkFormValidity()">
-            <div class="error-message" *ngIf="registrationForm.submitted && !user.mobile_number" style="color: red;">
+            <input class="form-control" type="tel" id="mobile_number" name="mobile_number" [(ngModel)]="user.mobileNumber" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.mobileNumber" style="color: red;">
                 Mobile number is required
             </div>
         </div>
 
         <div>
             <label for="role" class="form-label">Role</label>
-            <select class="form-control" id="role" name="role" [(ngModel)]="user.role" required (ngModelChange)="checkFormValidity()">
+            <select class="form-control" id="role" name="role" [(ngModel)]="user.userRole" required (ngModelChange)="checkFormValidity()">
                 <option value="">Select Role</option>
                 <option value="Admin">Admin</option>
                 <option value="User">User</option>
             </select>
-            <div class="error-message" *ngIf="registrationForm.submitted && !user.role" style="color: red;">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.userRole" style="color: red;">
                 Role is required
             </div>
         </div>
