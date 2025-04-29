@@ -1,0 +1,115 @@
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Login Component Styling */
+#loginComponent {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading Styling */
+h2 {
+    margin-bottom: 25px;
+    color: #2d3436;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Label Styling */
+label {
+    font-weight: 600;
+    color: #555;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Input Fields Styling */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #0984e3;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(9, 132, 227, 0.5);
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #6c5ce7, #0984e3);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #4e54c8, #0077d6);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Paragraph and Link Styling */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #636e72;
+}
+
+a {
+    color: #0984e3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #6c5ce7;
+}
+
+/* Keyframe Animation for Login Box */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
