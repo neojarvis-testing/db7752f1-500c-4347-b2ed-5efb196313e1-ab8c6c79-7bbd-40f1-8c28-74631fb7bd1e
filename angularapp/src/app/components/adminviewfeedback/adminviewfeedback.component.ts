@@ -10,6 +10,7 @@ export class AdminviewfeedbackComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //
   }
 
 }

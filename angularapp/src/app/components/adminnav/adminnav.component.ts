@@ -14,6 +14,7 @@ export class AdminnavComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //
   }
 
 }

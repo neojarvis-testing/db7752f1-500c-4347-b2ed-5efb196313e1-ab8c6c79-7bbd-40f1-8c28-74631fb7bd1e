@@ -10,6 +10,7 @@ export class AdmineditroomComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //
   }
 
 }
