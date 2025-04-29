@@ -18,7 +18,7 @@ namespace dotnetapp.Controllers
 
 
         public BookingController(BookingService bookingService)
-         {
+        {
             _bookingService = bookingService;
         }
         
