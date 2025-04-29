@@ -1,10 +1,33 @@
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
+login : .login-wrapper {
+  max-width: 900px;
+  background-color: #f8f9fa;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+form label {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary {
+  background-color: #0077b6;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #023e8a;
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    margin: 20px;
   }
-  
-  .container {
-    height: 100vh;
-  }
-  
+}
