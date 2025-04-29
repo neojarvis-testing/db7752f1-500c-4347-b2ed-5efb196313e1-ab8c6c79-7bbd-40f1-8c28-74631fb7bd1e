@@ -1,1 +1,68 @@
-<h2>Registration</h2>
+<div class="container">
+    <h2>HOTEL BOOKING HUB</h2>
+    <h3>Registration</h3>
+    <form #registrationForm="ngForm" (ngSubmit)="onSubmit()" class="form">
+        <div>
+            <label for="username" class="form-label">Username</label>
+            <input class="form-control" type="text" id="username" name="username" [(ngModel)]="user.username" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.username" style="color: red;">
+                Username is required
+            </div>
+        </div>
+
+        <div>
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" type="email" id="email" name="email" [(ngModel)]="user.email" required email (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.email" style="color: red;">
+                Email is required
+            </div>
+            <div class="error-message" *ngIf="registrationForm.submitted && user.email && !registrationForm.controls.email.valid" style="color: red;">
+                Please enter a valid email
+            </div>
+            <div class="error-message" *ngIf="userExists" style="color: red;">
+                User already exists
+            </div>
+        </div>
+
+        <div>
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" id="password" name="password" [(ngModel)]="user.password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.password" style="color: red;">
+                Password is required
+            </div>
+            <div class="error-message" *ngIf="registrationForm.submitted && user.password && !registrationForm.controls.password.valid" style="color: red;">
+                Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character
+            </div>
+        </div>
+
+        <div>
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input class="form-control" type="password" id="confirm_password" name="confirm_password" [(ngModel)]="user.confirm_password" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && user.password !== user.confirm_password" style="color: red;">
+                Passwords must match
+            </div>
+        </div>
+
+        <div>
+            <label for="mobile_number" class="form-label">Mobile Number</label>
+            <input class="form-control" type="tel" id="mobile_number" name="mobile_number" [(ngModel)]="user.mobile_number" required (ngModelChange)="checkFormValidity()">
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.mobile_number" style="color: red;">
+                Mobile number is required
+            </div>
+        </div>
+
+        <div>
+            <label for="role" class="form-label">Role</label>
+            <select class="form-control" id="role" name="role" [(ngModel)]="user.role" required (ngModelChange)="checkFormValidity()">
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+            </select>
+            <div class="error-message" *ngIf="registrationForm.submitted && !user.role" style="color: red;">
+                Role is required
+            </div>
+        </div>
+
+        <button class="btn btn-success mt-2" id="registerButton" type="submit" [disabled]="!registrationForm.form.valid">Register</button>
+    </form>
+</div>
