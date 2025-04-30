@@ -1,27 +1,13 @@
-
-
-
 <ng-container *ngIf="activeNavbar === 'app'">
-  
   <app-navbar></app-navbar>
-  
+  <router-outlet></router-outlet>
 </ng-container>
 
 <ng-container *ngIf="activeNavbar === 'user'">
-  
   <app-usernav></app-usernav>
-  
+  <router-outlet></router-outlet>
 </ng-container>
 
 <ng-container *ngIf="activeNavbar === 'admin'">
   <app-adminnav></app-adminnav>
-
 </ng-container>
-
-<div class="">
-
-  <router-outlet></router-outlet>
-
-</div>
-
-

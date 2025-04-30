@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'admin/view-rooms', component: AdminviewroomComponent, canActivate: [AuthGuard] },
   { path: 'admin/view-feedback', component: AdminviewfeedbackComponent, canActivate: [AuthGuard] },
   { path: 'admin/view-bookings', component: AdminviewrequestedbookingComponent, canActivate: [AuthGuard] },
-  { path: 'user/home', component: HomeComponent },
+  { path: 'user/home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'user/add-booking', component: UseraddbookingComponent, canActivate: [AuthGuard] },
   { path: 'user/add-feedback', component: UseraddfeedbackComponent, canActivate: [AuthGuard] },
   { path: 'user/view-rooms', component: UserviewroomComponent, canActivate: [AuthGuard] },
