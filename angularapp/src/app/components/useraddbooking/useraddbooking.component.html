@@ -1,25 +1,42 @@
-<h2>Booking Request Form</h2>
+<div class="booking-container">
+    <h2>Booking Request Form</h2>
+    <button type="button" (click)="userviewmybooking()">Back</button>
 
+    <form #bookingForm="ngForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="checkIn">Check-In Date*</label><br>
+            <input type="date" id="checkIn" [(ngModel)]="checkIn" name="checkIn" required #checkInInput="ngModel"><br>
+            <div class="error" *ngIf="checkInInput.invalid && checkInInput.touched" style="color: red;">Check-In Date is required.</div>
+        </div>
 
-    <div >
-        <button type="button" onclick="userviewmybooking()">Back</button>
-        <form>
-            <label>Check-In Date*</label><br>
-            <input type="date" required><br>
+        <div>
+            <label for="checkOut">Check-Out Date*</label><br>
+            <input type="date" id="checkOut" [(ngModel)]="checkOut" name="checkOut" required #checkOutInput="ngModel"><br>
+            <div class="error" *ngIf="checkOutInput.invalid && checkOutInput.touched" style="color: red;">Check-Out Date is required.</div>
+        </div>
 
-            <label>Check-Out Date*</label><br>
-            <input type="date" required><br>
+        <div>
+            <label for="specialRequests">Special Requests*</label><br>
+            <textarea id="specialRequests" [(ngModel)]="specialRequests" name="specialRequests" required #specialRequestsInput="ngModel"></textarea><br>
+            <div class="error" *ngIf="specialRequestsInput.invalid && specialRequestsInput.touched" style="color: red;">Special Requests are required.</div>
+        </div>
 
-            <label>Special Requests*</label><br>
-            <textarea required></textarea><br>
+        <div>
+            <label for="bookingPurpose">Booking Purpose*</label><br>
+            <input type="text" id="bookingPurpose" [(ngModel)]="bookingPurpose" name="bookingPurpose" required #bookingPurposeInput="ngModel"><br>
+            <div class="error" *ngIf="bookingPurposeInput.invalid && bookingPurposeInput.touched" style="color: red;">Booking Purpose is required.</div>
+        </div>
 
-            <label>Booking Purpose*</label><br>
-            <input required><br>
+        <div>
+            <label for="additionalComments">Additional Comments*</label><br>
+            <textarea id="additionalComments" [(ngModel)]="additionalComments" name="additionalComments" required #additionalCommentsInput="ngModel"></textarea><br>
+            <div class="error" *ngIf="additionalCommentsInput.invalid && additionalCommentsInput.touched" style="color: red;">Additional Comments are required.</div>
+        </div>
 
-            <label>Additional Comments*</label><br>
-            <textarea required></textarea><br>
+        <!-- <div class="error" *ngIf="bookingForm.invalid && bookingForm.touched">
+            All fields are required.
+        </div> -->
 
-            <button type="submit">Submit</button>
-            
-        </form>
-    </div>
+        <button type="submit" [disabled]="bookingForm.invalid">Submit</button>
+    </form>
+</div>
