@@ -62,16 +62,16 @@ namespace dotnetapp.Controllers
                 var result = await _roomService.AddRoom(room);
                 if (!result)
                 {
-                    return StatusCode(500, "Failed to add room");
+                    return StatusCode(500, new { status = "Error", message = "Failed to add room" });
                 }
-                return Ok("Room added successfully");
-
+                return Ok(new { status = "Success", message = "Room added successfully" });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, new { status = "Error", message = "An unexpected error occurred" });
             }
         }
+
 
         [HttpPut("{roomId}")]
         public async Task<ActionResult> UpdateRoom(int roomId, [FromBody] Room room)

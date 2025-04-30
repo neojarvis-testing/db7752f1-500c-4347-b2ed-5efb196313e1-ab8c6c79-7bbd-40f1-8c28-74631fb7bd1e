@@ -11,7 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FeedbackService {
-  private apiUrl = environment.apiUrl;
+   apiUrl : string = "https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io";
  
   constructor(private http: HttpClient, private authService: AuthService) {}
   private getHeaders(): HttpHeaders {

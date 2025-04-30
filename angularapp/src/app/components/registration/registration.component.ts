@@ -40,6 +40,7 @@
 
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -58,31 +59,31 @@ export class RegistrationComponent {
   };
   confirm_password:string = '';
   userExists = false;
+  errorMessage: string ='';
 
-  constructor(private _service:AuthService) {}
+  constructor(private _service:AuthService, private route : Router) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log("UserBefore Subscribe: ",this.user);
-      // Handle form submission
-      this._service.register(this.user).subscribe(response=>{
-        console.log("User",this.user);
-        console.log("response",response);
-        
-      }, (error)=>{
-        console.log("Error", error);
-        alert("User Already Exists");
-      });
-      console.log('Form Submitted!', this.user);
-      // Reset form after submission
-      //form.reset();
+        console.log("UserBefore Subscribe: ", this.user);
+        this._service.register(this.user).subscribe(response => {
+            // console.log("User registered successfully", response);
+            this.route.navigate(['login']);
+        }, (error) => {
+            console.log('Registration failed', error); 
+            if (error.status === 400 && error.error?.message) {
+                this.errorMessage = error.error.message; 
+            } else {
+                this.errorMessage = 'An unexpected error occurred. Please try again.';
+            }
+        });
     } else {
-      console.log('Form is invalid');
+        this.errorMessage = 'Invalid Password';
     }
-  }
+}
+
 
   checkFormValidity() {
-    // Additional validation logic if needed
-    this.userExists = false; // Reset userExists flag on input change
+    this.userExists = false; 
   }
 }
