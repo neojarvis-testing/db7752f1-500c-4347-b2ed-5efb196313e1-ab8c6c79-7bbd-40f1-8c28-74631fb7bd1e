@@ -14,8 +14,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkCurrentRoute();
-
-    // Listen to route changes dynamically
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.checkCurrentRoute();
@@ -37,7 +35,7 @@ export class NavbarComponent implements OnInit {
         navbar.classList.remove('static');
       }
     } else {
-      navbar.classList.add('static'); // Always static on other pages
+      navbar.classList.add('static'); 
       navbar.classList.remove('scrolled');
     }
   }
