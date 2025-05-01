@@ -6,6 +6,8 @@ import { catchError, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user.model';
+import { UserDTO } from '../models/user-dto.model';
  
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class FeedbackService {
     const token = this.authService.getToken();
     return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
+
   sendFeedback(feedback: Feedback): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/api/feedback`, feedback, { headers: this.getHeaders(), responseType: 'text' as 'json' }).pipe(
       catchError(this.handleError)
@@ -39,6 +42,13 @@ export class FeedbackService {
       catchError(this.handleError)
     );
   }
+
+  getUserDetailsById(userId: number): Observable<UserDTO> {
+    return this.http.get<UserDTO>(`${this.apiUrl}/api/feedback/user/${userId}`,{ headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(error);
