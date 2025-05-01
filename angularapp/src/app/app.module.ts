@@ -23,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
+import { GuestLayoutComponent } from './components/guest-layout/guest-layout.component';
+import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './components/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { UsernavComponent } from './components/usernav/usernav.component';
     UserviewfeedbackComponent,
     UserviewmybookingComponent,
     DashboardComponent,
-    UsernavComponent
+    UsernavComponent,
+    GuestLayoutComponent,
+    AdminLayoutComponent,
+    UserLayoutComponent
   ],
   imports: [
     BrowserModule,

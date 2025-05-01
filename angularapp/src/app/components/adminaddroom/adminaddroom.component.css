@@ -60,3 +60,23 @@ button:hover {
     background: #218838;
     transform: scale(1.05); 
 }
+
+
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    padding: 15px;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    font-size: 16px;
+  }
+  
+  .modal-footer {
+    padding: 10px;
+  }
+  

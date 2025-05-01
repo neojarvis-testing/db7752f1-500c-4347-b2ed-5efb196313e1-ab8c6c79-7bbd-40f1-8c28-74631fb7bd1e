@@ -20,6 +20,8 @@ export class AuthService {
   public apiUrl = 'https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
 
   private tokenKey = 'authToken';
+  private role : string;
+  private userName : string;
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userIdSubject = new BehaviorSubject<number | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
@@ -42,13 +44,13 @@ export class AuthService {
           localStorage.setItem(this.tokenKey, response.token);
 
           
-          const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-          const userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+           this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+           this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
 
-          localStorage.setItem('role', role);
-          localStorage.setItem('UserName', userName);
+          localStorage.setItem('role', this.role);
+          localStorage.setItem('UserName', this.userName);
           
-          this.userRoleSubject.next(role);
+          this.userRoleSubject.next(this.role);
           // this.router.navigate(['']);
           // this.userIdSubject.next(decodedToken.id);
         }
@@ -69,10 +71,14 @@ export class AuthService {
   
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('role');
+    localStorage.removeItem('UserName');
     this.userRoleSubject.next(null);
     this.userIdSubject.next(null);
-    this.router.navigate(['/auth/login']);
-
+    // this.router.navigate(['/login']).then(() => {
+    //   window.location.reload();
+    // });
+    this.router.navigate(['']);
   }
 
   getToken(): string | null {
@@ -85,12 +91,6 @@ export class AuthService {
   getRole(): string {
     return localStorage.getItem('role') || '';
   }
-  
-  // isLoggedIn(): boolean {
-  
-  //   return !!localStorage.getItem('token');
-  
-  // }
   
 
 }

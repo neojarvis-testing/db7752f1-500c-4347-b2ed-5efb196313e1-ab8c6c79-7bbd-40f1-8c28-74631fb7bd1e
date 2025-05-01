@@ -10,7 +10,7 @@ import { Booking } from '../models/booking.model';
 })
 export class RoomService {
 
-  apiUrl:string = 'https://8080-eefafbfabdefeedbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
+  apiUrl:string = "https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io";
   
   constructor(private client:HttpClient) { }
 
@@ -31,7 +31,7 @@ export class RoomService {
     return this.client.post<Room>(`${this.apiUrl}/api/room`, room, {headers: this.getAuthHeaders()});
   }
 
-  updateRoom(roomId:string, room:Room):Observable<Room>{
+  updateRoom(roomId:number, room:Room):Observable<Room>{
     return this.client.put<Room>(`${this.apiUrl}/api/room/${roomId}`, room, {headers: this.getAuthHeaders()});
   }
 
