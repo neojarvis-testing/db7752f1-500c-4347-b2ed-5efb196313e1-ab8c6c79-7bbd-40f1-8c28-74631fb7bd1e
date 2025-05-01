@@ -20,15 +20,15 @@ export class AuthService {
   public apiUrl = 'https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
 
   private tokenKey = 'authToken';
-  private role : string;
-  private userName : string;
+  private role: string;
+  private userName: string;
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userIdSubject = new BehaviorSubject<number | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
   userId$ = this.userIdSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
-  
+
   register(user: User): Observable<any> {
     return this.http.post<Login>(`${this.apiUrl}/api/register`, user);
   }
@@ -38,7 +38,7 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           const decodedToken: any = this.decodeToken(response.token);
-          console.log("----",decodedToken);
+          console.log("----", decodedToken);
           localStorage.setItem(this.tokenKey, response.token);
           this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
           this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
@@ -62,7 +62,7 @@ export class AuthService {
       return null;
     }
   }
-  
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('role');
@@ -83,6 +83,14 @@ export class AuthService {
   getRole(): string {
     return localStorage.getItem('role') || '';
   }
-  
 
+  getUserId(): number {
+    const userId = localStorage.getItem('UserId');
+    return userId ? parseInt(userId) : 0;
+  }
+
+  getUserName():string{
+    const userName = localStorage.getItem('UserName');
+    return userName;
+  }
 }

@@ -1,3 +1,4 @@
+
 export class Feedback {
     feedbackId?: number;
     userId: number;
@@ -5,3 +6,4 @@ export class Feedback {
     date: Date;
   }
   
+

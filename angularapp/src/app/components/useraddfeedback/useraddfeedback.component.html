@@ -1,35 +1,69 @@
-<div class="feedback-container">
-  <h2>Add Feedback</h2>
+<div class="container my-5">
 
-  <!-- Feedback Input -->
-  <div class="form-group">
-    <label for="feedback">Feedback</label><br>
-    <textarea
-      id="feedback"
-      name="feedback"
-      [(ngModel)]="feedbackText"
-      required
-      (blur)="feedbackTouched = true"
-    ></textarea>
+  <!-- Form to add new Feedback -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-primary">We Value Your Feedback</h3>
 
-    <!-- Validation Message -->
-    <div *ngIf="feedbackTouched && feedbackText.trim() === ''" class="error-message">
-      Feedback is required
+      <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm" novalidate>
+        <div class="mb-3">
+          <label for="content" class="form-label fw-semibold">Your Experience</label>
+          <textarea
+            id="content"
+            name="content"
+            [(ngModel)]="feedback.feedbackText"
+            class="form-control"
+            rows="4"
+            placeholder="Share your thoughts about your stay..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success px-4" [disabled]="feedbackForm.invalid">
+          Submit Feedback
+        </button>
+        <div *ngIf="showThankYou" class="mt-2 text-success">
+          Thanks for sharing your experience with us!
+        </div>        
+      </form>
     </div>
   </div>
 
-  <!-- Submit Button -->
-  <button
-    type="button"
-    (click)="submitFeedback()"
-    [disabled]="feedbackText.trim() === ''"
-  >
-    Submit
-  </button>
+  <!-- List of Previous feedbacks -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title mb-4 text-secondary">{{ userName }}'s Previous Feedback</h4>
 
-  <!-- Popup Message -->
-  <div *ngIf="showPopup" class="popup">
-    <p>Successfully Added!</p>
-    <button type="button" (click)="closePopup()">Ok</button>
+      <div *ngIf="feedbacks.length > 0; else noFeedback">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Feedback</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fb of feedbacks">
+                <td>{{ fb.date | date: 'dd-MM-yyyy' }}</td>
+                <td>{{ fb.date | date: 'shortTime' }}</td>
+                <td>{{ fb.feedbackText }}</td>
+                <td>
+                  <button class="btn btn-outline-danger btn-sm" (click)="onDelete(fb.feedbackId)">
+                    <i class="bi bi-trash-fill"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ng-template #noFeedback>
+        <p class="text-muted">No feedback submitted yet.</p>
+      </ng-template>
+    </div>
   </div>
 </div>
