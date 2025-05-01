@@ -1,0 +1,38 @@
+.bg-gradient-custom {
+    background: linear-gradient(90deg, #0d6efd, #6610f2);
+    color: white;
+  }
+  
+  .table th,
+  .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+  }
+  
+  .modal {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+  }
+  
+  .styled-hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, #4e73df, #1cc88a, #4e73df);
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  
