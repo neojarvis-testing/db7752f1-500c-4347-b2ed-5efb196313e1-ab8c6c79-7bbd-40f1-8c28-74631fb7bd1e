@@ -10,7 +10,6 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./adminviewfeedback.component.css']
 })
 export class AdminviewfeedbackComponent implements OnInit {
-
   feedbacks: Feedback[] = [];
   showModal = false;
   isLoading = false;
@@ -46,3 +45,4 @@ export class AdminviewfeedbackComponent implements OnInit {
     this.showModal = false;
   }
 }
+
