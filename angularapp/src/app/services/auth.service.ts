@@ -39,20 +39,14 @@ export class AuthService {
         if (response.token) {
           const decodedToken: any = this.decodeToken(response.token);
           console.log("----",decodedToken);
-
-          // Storing key in Local Storage 
           localStorage.setItem(this.tokenKey, response.token);
-
-          
-           this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-           this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
-
+          this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+          this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+          const userId = decodedToken['UserId'];
           localStorage.setItem('role', this.role);
           localStorage.setItem('UserName', this.userName);
-          
+          localStorage.setItem('UserId', userId);
           this.userRoleSubject.next(this.role);
-          // this.router.navigate(['']);
-          // this.userIdSubject.next(decodedToken.id);
         }
       })
     );
@@ -73,11 +67,9 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('role');
     localStorage.removeItem('UserName');
+    localStorage.removeItem('UserId');
     this.userRoleSubject.next(null);
     this.userIdSubject.next(null);
-    // this.router.navigate(['/login']).then(() => {
-    //   window.location.reload();
-    // });
     this.router.navigate(['/login']);
   }
 
