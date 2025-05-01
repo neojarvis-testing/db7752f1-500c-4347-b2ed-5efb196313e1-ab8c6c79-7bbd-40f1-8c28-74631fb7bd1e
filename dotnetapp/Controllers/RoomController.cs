@@ -88,7 +88,8 @@ namespace dotnetapp.Controllers
                     return NotFound("Cannot find any room");
                 }
                 await _roomService.UpdateRoom(roomId, room);
-                return Ok("Room updated successfully");
+                return Ok(new { status = "Success", message = "Room updated successfully" });
+                 
             }
             catch (System.Exception ex)
             {
@@ -107,7 +108,8 @@ namespace dotnetapp.Controllers
                     return NotFound("Cannot find any room");
                 }
                 await _roomService.DeleteRoom(roomId);
-                return Ok("Room deleted successfully");
+                return Ok(new { status = "Success", message = "Room deleted successfully" });
+                
             }
             catch (System.Exception ex)
             {

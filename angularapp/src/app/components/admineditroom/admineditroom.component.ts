@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/services/room.service';
 declare var bootstrap: any;
+
 @Component({
   selector: 'app-admineditroom',
   templateUrl: './admineditroom.component.html',
   styleUrls: ['./admineditroom.component.css']
 })
 export class AdmineditroomComponent implements OnInit {
+
   room: Room = {
     hotelName: '',
     roomType: '',
@@ -44,10 +46,11 @@ export class AdmineditroomComponent implements OnInit {
             const modalElement = document.getElementById('successModal');
             if (modalElement) {
               const modal = new bootstrap.Modal(modalElement);
+
               modal.show();
             }
           }, 0);
-           form.resetForm();
+
         },
         (error: any) => {
           console.log('Room addition failed', error);
@@ -58,6 +61,10 @@ export class AdmineditroomComponent implements OnInit {
   }
   
   
- 
+  navigateToViewRooms() {
+    console.log("hhh");
+    
+    this.router.navigate(['/admin/view-rooms'])
+  }
 
 }

@@ -78,7 +78,7 @@ export class AuthService {
     // this.router.navigate(['/login']).then(() => {
     //   window.location.reload();
     // });
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
   getToken(): string | null {

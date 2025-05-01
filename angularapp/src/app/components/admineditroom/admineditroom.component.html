@@ -88,22 +88,16 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg border-0">
         <div class="modal-header bg-success text-white">
-          <h5 class="modal-title fw-bold" id="successModalLabel">Room Updated Successfully!</h5>
+          <h5 class="modal-title fw-bold" id="successModalLabel">Success</h5>
         </div>
-        <div class="modal-body">
-          <p><strong>Hotel Name:</strong> {{ room.hotelName }}</p>
-          <p><strong>Room Type:</strong> {{ room.roomType }}</p>
-          <p><strong>No. of Rooms:</strong> {{ room.noOfRooms }}</p>
-          <p><strong>Price per Night:</strong> ₹{{ room.pricePerNight }}</p>
-          <p><strong>Location:</strong> {{ room.location }}</p>
-          <p><strong>Bed Type:</strong> {{ room.bedType }}</p>
-          <p><strong>Availability:</strong> {{ room.isAvailable ? 'Available' : 'Not Available' }}</p>
-          <p><strong>Facilities:</strong> {{ room.facilities }}</p>
-          <p><strong>Description:</strong> {{ room.description }}</p>
-          <p><strong>Image URL:</strong> {{ room.imageUrl }}</p>
+        <div class="modal-body text-center">
+          <p class="fs-5 text-success">
+            ✅ Room at <strong>{{ room.hotelName }}</strong> has been successfully updated!
+          </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" (click)="navigateToViewRooms()">Close</button>
+
         </div>
       </div>
     </div>
