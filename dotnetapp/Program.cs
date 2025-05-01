@@ -71,6 +71,22 @@ builder.Services.AddCors(options =>
     }
 
 app.UseCors("AllowAll");
+
+// Might fix CORS error.
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == HttpMethods.Options)
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
+    }
+    else
+    {
+        await next();
+    }
+});
+//
+
 app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();

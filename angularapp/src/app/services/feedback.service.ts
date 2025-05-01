@@ -24,7 +24,7 @@ export class FeedbackService {
     );
   }
   getAllFeedbacksByUserId(userId: number): Observable<Feedback[]> {
-    return this.http.get<Feedback[]>(`${this.apiUrl}/api/feedback/user/${userId}`, { headers: this.getHeaders() }).pipe(
+    return this.http.get<Feedback[]>(`${this.apiUrl}/api/feedback/${userId}`, { headers: this.getHeaders() }).pipe(
       catchError(this.handleError)
     );
   }

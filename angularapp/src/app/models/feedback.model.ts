@@ -1,7 +1,7 @@
 export class Feedback
 {
-    FeedbackId? : number;
-    UserId : number;
-    FeedbackText : string;
-    Date : Date;
+    feedbackId? : number;
+    userId : number;
+    feedbackText : string;
+    date? : Date;
 }
