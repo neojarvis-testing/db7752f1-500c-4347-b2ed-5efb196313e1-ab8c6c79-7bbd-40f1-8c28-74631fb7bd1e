@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Room } from '../models/room.model';
 import { Observable } from 'rxjs';
 import { Booking } from '../models/booking.model';
+import { BookingDto } from '../models/booking-dto.model';
 
 
 @Injectable({
@@ -35,14 +36,14 @@ export class RoomService {
     return this.client.put<Room>(`${this.apiUrl}/api/room/${roomId}`, room, {headers: this.getAuthHeaders()});
   }
 
-  deleteRoom(roomId:string):Observable<void>{
+  deleteRoom(roomId:number):Observable<void>{
     return this.client.delete<void>(`${this.apiUrl}/api/room/${roomId}`, {headers: this.getAuthHeaders()});
   }
 
   
-  getAllBookings():Observable<Booking[]>{
+  getAllBookings():Observable<BookingDto[]>{
     
-    return this.client.get<Booking[]>(`${this.apiUrl}/api/booking`, {headers: this.getAuthHeaders()});
+    return this.client.get<BookingDto[]>(`${this.apiUrl}/api/booking`, {headers: this.getAuthHeaders()});
   }
 
   getBookingsByUserId(userId:string):Observable<Booking[]>{

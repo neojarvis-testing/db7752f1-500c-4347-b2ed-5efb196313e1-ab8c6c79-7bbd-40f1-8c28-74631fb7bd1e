@@ -23,7 +23,7 @@ namespace dotnetapp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetAllBookings()
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetAllBookings()
         {
             var bookings = await _bookingService.GetAllBookings();
             return Ok(bookings); 
@@ -44,7 +44,8 @@ namespace dotnetapp.Controllers
                 var result = await _bookingService.AddBooking(booking);
                 if (result)
                 {
-                    return Ok("Booking added successfully"); 
+                    return Ok(new { status = "Success", message = "Booking added successfully" });
+                    
                 }
 
                 return BadRequest("Failed to add booking");
@@ -62,7 +63,8 @@ namespace dotnetapp.Controllers
                 var result = await _bookingService.UpdateBooking(bookingId, booking);
                 if (result)
                 {
-                    return Ok("Booking updated successfully"); 
+                    return  Ok(new { status = "Success", message = "Booking updated successfully" });
+                 
                 }
 
                 return NotFound("Cannot find the booking"); 
@@ -80,9 +82,10 @@ namespace dotnetapp.Controllers
                 var result = await _bookingService.DeleteBooking(bookingId);
                 if (result)
                 {
-                    return Ok("Booking deleted successfully"); 
+                    return  Ok(new { status = "Success", message = "Booking deleted successfully" }); 
+                      
                 }
-
+                
                 return NotFound("Cannot find the booking"); 
             }
             catch (Exception ex)
