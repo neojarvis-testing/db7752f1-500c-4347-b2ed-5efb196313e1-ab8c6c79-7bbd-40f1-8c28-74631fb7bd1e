@@ -8,6 +8,8 @@ using dotnetapp.Services;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+
 using System.Security.Claims;
 using System.Text;
 
@@ -77,9 +79,14 @@ namespace dotnetapp.Services
                 return (0, "Invalid password");
 
             var roles = await userManager.GetRolesAsync(user);
+            var dbUser = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (dbUser == null)
+                return (0, "User data missing in custom User table");
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim("UserId", dbUser.UserId.ToString())
             };
 
             claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));

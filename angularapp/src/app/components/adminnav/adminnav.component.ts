@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-adminnav',
@@ -6,15 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adminnav.component.css']
 })
 export class AdminnavComponent implements OnInit {
-  logout() {
-    localStorage.clear();
-    window.location.href = '/login';
-  }
-
-  constructor() { }
+ 
+  constructor(private authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
     //
   }
+
+  logout() {
+    console.log('Logging out...');
+    this.authService.logout();
+  }
+
 
 }

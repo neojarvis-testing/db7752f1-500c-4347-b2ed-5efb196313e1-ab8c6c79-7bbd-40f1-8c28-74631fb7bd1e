@@ -50,5 +50,20 @@ namespace dotnetapp.Services
             return true;
         }
 
+        public async Task<UserDTO> GetUserDetailsById(int userId)
+        {
+                var user = await _context.Users
+                    .Where(u => u.UserId == userId)
+                    .Select(u => new UserDTO
+                    {
+                        UserId = u.UserId,
+                        Username = u.Username,
+                        Email = u.Email,
+                        MobileNumber = u.MobileNumber,
+                    })
+                    .FirstOrDefaultAsync();
+                return user;
+        }
+
     }
 }

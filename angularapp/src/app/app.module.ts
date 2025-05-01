@@ -21,8 +21,11 @@ import { UserviewfeedbackComponent } from './components/userviewfeedback/uservie
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UsernavComponent } from './components/usernav/usernav.component';
+import { GuestLayoutComponent } from './components/guest-layout/guest-layout.component';
+import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './components/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     UserviewroomComponent,
     UserviewfeedbackComponent,
     UserviewmybookingComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsernavComponent,
+    GuestLayoutComponent,
+    AdminLayoutComponent,
+    UserLayoutComponent
   ],
   imports: [
     BrowserModule,

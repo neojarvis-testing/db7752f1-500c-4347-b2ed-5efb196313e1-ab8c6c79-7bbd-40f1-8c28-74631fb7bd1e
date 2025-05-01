@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/services/room.service';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-adminaddroom',
   templateUrl: './adminaddroom.component.html',
@@ -22,22 +23,30 @@ export class AdminaddroomComponent {
     facilities: '',
     imageUrl: ''
   };
+  errorMessage: string= '';
 
   constructor(private roomService: RoomService, private router : Router) { }
 
-
   addRoom(form: any) {
-    if (form.valid) {
-      // this.roomAdded.emit(this.room);
+    if (form.valid) {      
       this.roomService.addRoom(this.room).subscribe(
-        (res : any)=>{
-
-          this.router.navigate(['admin/view-rooms'])
-        },(error : any)=>{
-
+        (res: any) => {
+          console.log('Room added successfully', res);
+          setTimeout(() => {
+            const modalElement = document.getElementById('successModal');
+            if (modalElement) {
+              const modal = new bootstrap.Modal(modalElement);
+              modal.show();
+            }
+          }, 0);
+           form.resetForm();
+        },
+        (error: any) => {
+          console.log('Room addition failed', error);
+          this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
         }
-      )
+      );
     }
   }
+  
 }
-

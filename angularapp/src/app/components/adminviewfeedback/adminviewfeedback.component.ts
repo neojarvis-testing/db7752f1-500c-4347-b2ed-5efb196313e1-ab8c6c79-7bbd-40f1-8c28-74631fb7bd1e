@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Feedback } from 'src/app/models/feedback.model';
+import { UserDTO } from 'src/app/models/user-dto.model';
 import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
@@ -9,23 +10,39 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./adminviewfeedback.component.css']
 })
 export class AdminviewfeedbackComponent implements OnInit {
-  feedbacks:Feedback[]=[];
-  constructor(private service:FeedbackService,private router:Router) { }
+  feedbacks: Feedback[] = [];
+  showModal = false;
+  isLoading = false;
+  selectedUser: UserDTO | null = null;
+
+  constructor(private feedbackService: FeedbackService) {}
 
   ngOnInit(): void {
-    this.loadBooking();
+    this.fetchFeedbacks();
   }
 
-  loadBooking(){
-    this.service.getFeedbacks().subscribe(data=>{
-      console.log(data);
-      
-      this.feedbacks=data;
+  fetchFeedbacks(): void {
+    this.feedbackService.getFeedbacks().subscribe(data => {
+      this.feedbacks = data;
     });
   }
 
-  ShowProfile(){}
+  viewUserProfile(userId: number): void {
+    this.showModal = true;
+    this.isLoading = true;
+    this.selectedUser = null;
 
+    this.feedbackService.getUserDetailsById(userId).subscribe(user => {
+      this.selectedUser = user;
+      this.isLoading = false;
+    }, err => {
+      console.error('Error fetching user:', err);
+      this.isLoading = false;
+    });
+  }
 
-
+  closeModal(): void {
+    this.showModal = false;
+  }
 }
+

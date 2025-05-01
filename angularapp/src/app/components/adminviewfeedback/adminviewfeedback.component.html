@@ -1,4 +1,5 @@
-<h2>Feedback Details</h2>
+
+<!-- <h2>Feedback Details</h2>
 
 <table>
     <thead>
@@ -20,4 +21,62 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
+
+<div class="container ">
+    <h2 class="text-center text-primary mb-4">User Feedbacks</h2>
+    <hr class="styled-hr">
+    <div class="table-responsive shadow-lg rounded">
+      <table class="table table-hover table-bordered table-striped">
+        <thead class="bg-gradient-custom text-white">
+          <tr>
+            <th>S.No</th>
+            <th>User ID</th>
+            <th>Feedback</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feedback of feedbacks; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ feedback.userId }}</td>
+            <td>{{ feedback.feedbackText }}</td>
+            <td>{{ feedback.date | date: 'medium' }}</td>
+            <td>
+              <button class="btn btn-info btn-sm d-flex align-items-center" (click)="viewUserProfile(feedback.userId)">
+                <i class="bi bi-person-circle me-1"></i> View Profile
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+
+    <div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="showModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">User Profile</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <div *ngIf="isLoading" class="text-center py-3">
+              <div class="spinner-border text-primary" role="status"></div>
+              <p class="mt-2">Loading user details...</p>
+            </div>
+  
+            <div *ngIf="!isLoading && selectedUser">
+              <p><strong>User ID:</strong> {{ selectedUser.userId }}</p>
+              <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+              <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+              <p><strong>Mobile:</strong> {{ selectedUser.mobileNumber }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
