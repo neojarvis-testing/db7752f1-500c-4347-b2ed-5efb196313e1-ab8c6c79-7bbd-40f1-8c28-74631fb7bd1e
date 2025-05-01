@@ -11,7 +11,11 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 export class UseraddfeedbackComponent implements OnInit {
 
   feedbacks: Feedback[] = [];
-  feedback: Feedback = { feedbackText: '', userId: 0 };
+  feedback: Feedback = {
+    userId: 0,
+    feedbackText: '',
+    date: undefined
+  };
   userName: string = '';
   showThankYou: boolean = false;
 
@@ -26,17 +30,16 @@ export class UseraddfeedbackComponent implements OnInit {
     this.loadUserFeedbacks();
   }
 
-  // Load feedbacks for the currently logged-in user
   loadUserFeedbacks(): void {
     const userId = this.authService.getUserId();
 
     this.feedbackService.getAllFeedbacksByUserId(userId).subscribe({
       next: (feedbackList) => {
-        // Sort feedbacks by date descending
+
         this.feedbacks = feedbackList.sort((a, b) => {
           const dateA = new Date(a.date).getTime();
           const dateB = new Date(b.date).getTime();
-          return dateB - dateA; // Newest first
+          return dateB - dateA; 
         });
       },
       error: (error) => console.error('Failed to load feedbacks:', error)
@@ -45,7 +48,6 @@ export class UseraddfeedbackComponent implements OnInit {
   }
 
 
-  // Handle submission of feedback
   onSubmit(): void {
     const userId = this.authService.getUserId();
     const trimmedText = this.feedback.feedbackText.trim();
@@ -59,11 +61,10 @@ export class UseraddfeedbackComponent implements OnInit {
 
       this.feedbackService.sendFeedback(newFeedback).subscribe({
         next: () => {
-          this.feedback.feedbackText = ''; // Clear the input
-          this.loadUserFeedbacks();        // Refresh list
+          this.feedback.feedbackText = ''; 
+          this.loadUserFeedbacks();        
           this.showThankYou = true;
 
-          // Hide thank-you message after 3 seconds
           setTimeout(() => {
             this.showThankYou = false;
           }, 3000);
