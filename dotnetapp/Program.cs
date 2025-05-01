@@ -19,7 +19,7 @@ builder.Configuration
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddDefaultPolicy(policy =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
@@ -70,7 +70,7 @@ builder.Services.AddCors(options =>
         app.UseSwaggerUI();
     }
 
-app.UseCors("AllowAll");
+app.UseCors();
 
 // Might fix CORS error.
 app.Use(async (context, next) =>
