@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; 
+  }
+  
+  .d-flex {
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 200px; 
+    height: 100vh; 
+    position: fixed; 
+  }
+  
+  .flex-grow-1 {
+    margin-left: 200px; 
+    height: 100vh; 
+    overflow: auto; 
+  }
+  

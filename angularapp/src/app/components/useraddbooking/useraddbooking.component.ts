@@ -18,11 +18,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-useraddbooking',
   templateUrl: './useraddbooking.component.html',
   styleUrls: ['./useraddbooking.component.css']
 })
+
 export class UseraddbookingComponent {
   checkIn!: Date;
   checkOut!: Date;

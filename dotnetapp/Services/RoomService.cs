@@ -30,6 +30,8 @@ namespace dotnetapp.Services
 
         public async Task<bool> AddRoom(Room room)
         {
+            System.Console.WriteLine("--------------");
+            System.Console.WriteLine(room);
             int roomCount = await _context.Rooms.Where(r => r.HotelName.ToLower() == room.HotelName.ToLower()).SumAsync(r => r.NoOfRooms);
                 // System.Console.WriteLine("-----------------------");
                 // System.Console.WriteLine(roomCount);

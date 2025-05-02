@@ -20,13 +20,15 @@ export class AuthService {
   public apiUrl = 'https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
 
   private tokenKey = 'authToken';
+  private role: string;
+  private userName: string;
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userIdSubject = new BehaviorSubject<number | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
   userId$ = this.userIdSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
-  
+
   register(user: User): Observable<any> {
     return this.http.post<Login>(`${this.apiUrl}/api/register`, user);
   }
@@ -36,15 +38,15 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           const decodedToken: any = this.decodeToken(response.token);
-          // console.log("----",decodedToken);
+          console.log("----", decodedToken);
           localStorage.setItem(this.tokenKey, response.token);
-          const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-          const userName = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/name'];
-          localStorage.setItem('role', role);
-          localStorage.setItem('UserName', userName);
-          this.userRoleSubject.next(role);
-          // this.router.navigate(['']);
-          // this.userIdSubject.next(decodedToken.id);
+          this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+          this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+          const userId = decodedToken['UserId'];
+          localStorage.setItem('role', this.role);
+          localStorage.setItem('UserName', this.userName);
+          localStorage.setItem('UserId', userId);
+          this.userRoleSubject.next(this.role);
         }
       })
     );
@@ -60,13 +62,15 @@ export class AuthService {
       return null;
     }
   }
-  
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('role');
+    localStorage.removeItem('UserName');
+    localStorage.removeItem('UserId');
     this.userRoleSubject.next(null);
     this.userIdSubject.next(null);
-    this.router.navigate(['/auth/login']);
-
+    this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
@@ -79,12 +83,14 @@ export class AuthService {
   getRole(): string {
     return localStorage.getItem('role') || '';
   }
-  
-  // isLoggedIn(): boolean {
-  
-  //   return !!localStorage.getItem('token');
-  
-  // }
-  
 
+  getUserId(): number {
+    const userId = localStorage.getItem('UserId');
+    return userId ? parseInt(userId) : 0;
+  }
+
+  getUserName():string{
+    const userName = localStorage.getItem('UserName');
+    return userName;
+  }
 }

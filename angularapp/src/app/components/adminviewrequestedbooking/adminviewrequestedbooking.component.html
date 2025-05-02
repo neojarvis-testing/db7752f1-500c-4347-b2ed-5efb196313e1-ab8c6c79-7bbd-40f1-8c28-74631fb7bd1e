@@ -1,1 +1,81 @@
-<p>adminviewrequestedbooking works!</p>
+<div class="container ">
+  <h2 class="text-center text-primary mb-4">Manage Bookings</h2>
+
+  <!-- Search Input -->
+  <div class="input-group mb-4">
+    <span class="input-group-text bg-primary text-white"><i class="bi bi-search"></i></span>
+    <input
+      type="text"
+      class="form-control shadow-sm"
+      placeholder="Search by hotel name..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+      minlength="3"
+    />
+  </div>
+
+  <!-- Bookings Table -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered shadow-sm align-middle text-center">
+      <thead class="table-primary">
+        <tr class="align-middle">
+          <th>S.No</th>
+          <th>Username</th>
+          <th>Hotel</th>
+          <th>Room Type</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+          <th>Price/Night</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of filteredBookings; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ booking.username }}</td>
+          <td>{{ booking.hotelName }}</td>
+          <td>{{ booking.roomType }}</td>
+          <td>{{ booking.checkInDate }}</td>
+          <td>{{ booking.checkOutDate }}</td>
+          <td>₹{{ booking.pricePerNight }}</td>
+          <td>
+            <span class="badge rounded-pill px-3 py-2"
+              [ngClass]="{
+                'bg-success': booking.status === 'Confirmed',
+                'bg-danger': booking.status === 'Rejected',
+                'bg-secondary': booking.status !== 'Confirmed' && booking.status !== 'Rejected'
+              }">
+              {{
+                booking.status === 'Confirmed' ? 'Confirmed' :
+                booking.status === 'Rejected' ? 'Rejected' :
+                'Pending'
+              }}
+            </span>
+          </td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Actions">
+              <button
+                *ngIf="booking.status !== 'Confirmed'"
+                class="btn btn-outline-success btn-sm"
+                (click)="confirmBooking(booking)"
+                title="Confirm booking"
+              >
+                <i class="bi bi-check-circle-fill"></i>
+              </button>
+
+              <button
+                *ngIf="booking.status !== 'Rejected'"
+                class="btn btn-outline-danger btn-sm"
+                (click)="rejectBooking(booking)"
+                title="Reject booking"
+              >
+                <i class="bi bi-x-circle-fill"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

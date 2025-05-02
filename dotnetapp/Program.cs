@@ -19,13 +19,12 @@ builder.Configuration
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
 });
 
 
@@ -59,6 +58,7 @@ builder.Services.AddCors(options =>
     });
 
 
+
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
@@ -70,7 +70,23 @@ builder.Services.AddCors(options =>
         app.UseSwaggerUI();
     }
 
-app.UseCors("AllowAll");
+app.UseCors();
+
+// Might fix CORS error.
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == HttpMethods.Options)
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
+    }
+    else
+    {
+        await next();
+    }
+});
+//
+
 app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();

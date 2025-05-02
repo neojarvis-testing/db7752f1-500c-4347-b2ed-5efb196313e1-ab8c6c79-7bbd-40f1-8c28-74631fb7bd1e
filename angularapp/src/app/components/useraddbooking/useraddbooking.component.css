@@ -1,3 +1,4 @@
+
 /* Container Styling */
 .booking-container {
     max-width: 500px;
@@ -59,3 +60,4 @@ button:disabled {
     background: #cccccc;
     cursor: not-allowed;
 }
+

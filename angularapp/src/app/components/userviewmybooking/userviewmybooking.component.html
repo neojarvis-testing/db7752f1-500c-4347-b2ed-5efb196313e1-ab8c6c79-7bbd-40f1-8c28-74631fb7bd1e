@@ -1,1 +1,29 @@
-<h1>My Bookings</h1>
+<div class="room-list">
+  <h1>Available Rooms</h1>
+
+  <!-- Display list of rooms dynamically -->
+  <div *ngFor="let room of rooms" class="room-card">
+    <!-- Room Image -->
+    <img [src]="room.image" alt="Room Image" class="room-image">
+
+    <!-- Room Details -->
+    <div class="room-details">
+      <p><strong>Price:</strong> ₹{{ room.price }}</p>
+      <p><strong>Location:</strong> {{ room.location }}</p>
+      <p><strong>Description:</strong> {{ room.description }}</p>
+    </div>
+
+    <!-- Booking Action -->
+    <div class="room-action">
+      <button *ngIf="room.isAvailable" 
+              (click)="bookRoom(room.id)" 
+              class="btn btn-primary">
+        Book Now
+      </button>
+      <span *ngIf="!room.isAvailable" 
+            class="status-booked">
+        Already Booked
+      </span>
+    </div>
+  </div>
+</div>

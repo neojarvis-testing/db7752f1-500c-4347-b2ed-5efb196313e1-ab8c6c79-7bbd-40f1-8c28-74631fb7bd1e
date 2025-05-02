@@ -1,1 +1,104 @@
-<p>admineditroom works!</p>
+<div class="container mt-4">
+    <h2 class="text-center text-success">Update Room</h2>
+    <form #roomForm="ngForm" (ngSubmit)="updateRoom(roomForm)" [class.was-validated]="roomForm.submitted">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="hotelName">Hotel Name <span class="text-danger">*</span>:</label>
+            <input type="text" id="hotelName" class="form-control" required placeholder="Enter hotel name" [(ngModel)]="room.hotelName" name="hotelName" #hotelName="ngModel">
+            <div *ngIf="roomForm.submitted && hotelName.invalid" class="text-danger">Hotel name is required.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="roomType">Room Type <span class="text-danger">*</span>:</label>
+            <select id="roomType" class="form-control" required [(ngModel)]="room.roomType" name="roomType" #roomType="ngModel">
+              <option value="" disabled selected>Select room type</option>
+              <option value="Single">Single</option>
+              <option value="Double">Double</option>
+              <option value="Suite">Suite</option>
+            </select>
+            <div *ngIf="roomForm.submitted && roomType.invalid" class="text-danger">Please select a room type.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="noOfRooms">Number of Rooms <span class="text-danger">*</span>:</label>
+            <input type="number" id="noOfRooms" class="form-control" required placeholder="Enter number of rooms" [(ngModel)]="room.noOfRooms" name="noOfRooms" #noOfRooms="ngModel">
+            <div *ngIf="roomForm.submitted && noOfRooms.invalid" class="text-danger">Enter the number of rooms.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="price">Price Per Night <span class="text-danger">*</span>:</label>
+            <input type="number" id="price" class="form-control" required placeholder="Enter price per night" [(ngModel)]="room.pricePerNight" name="price" #price="ngModel">
+            <div *ngIf="roomForm.submitted && price.invalid" class="text-danger">Enter the price per night.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="location">Location <span class="text-danger">*</span>:</label>
+            <input type="text" id="location" class="form-control" required placeholder="Enter location" [(ngModel)]="room.location" name="location" #location="ngModel">
+            <div *ngIf="roomForm.submitted && location.invalid" class="text-danger">Location is required.</div>
+          </div>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="bedType">Bed Type <span class="text-danger">*</span>:</label>
+            <input type="text" id="bedType" class="form-control" required placeholder="Enter bed type" [(ngModel)]="room.bedType" name="bedType" #bedType="ngModel">
+            <div *ngIf="roomForm.submitted && bedType.invalid" class="text-danger">Bed type is required.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description <span class="text-danger">*</span>:</label>
+            <textarea id="description" class="form-control" required placeholder="Enter room description" [(ngModel)]="room.description" name="description" #description="ngModel"></textarea>
+            <div *ngIf="roomForm.submitted && description.invalid" class="text-danger">Description is required.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="facilities">Facilities <span class="text-danger">*</span>:</label>
+            <input type="text" id="facilities" class="form-control" required placeholder="Enter facilities available" [(ngModel)]="room.facilities" name="facilities" #facilities="ngModel">
+            <div *ngIf="roomForm.submitted && facilities.invalid" class="text-danger">Facilities are required.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="imageUrl">Image URL <span class="text-danger">*</span>:</label>
+            <input type="text" id="imageUrl" class="form-control" required placeholder="Enter image URL" [(ngModel)]="room.imageUrl" name="imageUrl" #imageUrl="ngModel">
+            <div *ngIf="roomForm.submitted && imageUrl.invalid" class="text-danger">Image URL is required.</div>
+          </div>
+  
+          <div class="form-group">
+            <label for="isAvailable">Is Available <span class="text-danger">*</span>:</label>
+            <select id="isAvailable" class="form-control" required [(ngModel)]="room.isAvailable" name="isAvailable" #isAvailable="ngModel">
+              <option  disabled selected>Select availability</option>
+              <option [ngValue]="true">Available</option>
+              <option [ngValue]="false">Not Available</option>
+            </select>
+            <div *ngIf="roomForm.submitted && isAvailable.invalid" class="text-danger">Please select availability.</div>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-success mt-3 w-100">Update Room</button>
+    </form>
+  </div>
+  
+
+
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title fw-bold" id="successModalLabel">Success</h5>
+        </div>
+        <div class="modal-body text-center">
+          <p class="fs-5 text-success">
+            ✅ Room at <strong>{{ room.hotelName }}</strong> has been successfully updated!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" (click)="navigateToViewRooms()">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
