@@ -1,42 +1,64 @@
-<div class="booking-container">
-    <h2>Booking Request Form</h2>
-    <button type="button" (click)="userviewmybooking()">Back</button>
+<div class="container mt-4" *ngIf="!isBookingSuccessful">
 
-    <form #bookingForm="ngForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="checkIn">Check-In Date*</label><br>
-            <input type="date" id="checkIn" [(ngModel)]="checkIn" name="checkIn" required #checkInInput="ngModel"><br>
-            <div class="error" *ngIf="checkInInput.invalid && checkInInput.touched" style="color: red;">Check-In Date is required.</div>
-        </div>
-
-        <div>
-            <label for="checkOut">Check-Out Date*</label><br>
-            <input type="date" id="checkOut" [(ngModel)]="checkOut" name="checkOut" required #checkOutInput="ngModel"><br>
-            <div class="error" *ngIf="checkOutInput.invalid && checkOutInput.touched" style="color: red;">Check-Out Date is required.</div>
-        </div>
-
-        <div>
-            <label for="specialRequests">Special Requests*</label><br>
-            <textarea id="specialRequests" [(ngModel)]="specialRequests" name="specialRequests" required #specialRequestsInput="ngModel"></textarea><br>
-            <div class="error" *ngIf="specialRequestsInput.invalid && specialRequestsInput.touched" style="color: red;">Special Requests are required.</div>
-        </div>
-
-        <div>
-            <label for="bookingPurpose">Booking Purpose*</label><br>
-            <input type="text" id="bookingPurpose" [(ngModel)]="bookingPurpose" name="bookingPurpose" required #bookingPurposeInput="ngModel"><br>
-            <div class="error" *ngIf="bookingPurposeInput.invalid && bookingPurposeInput.touched" style="color: red;">Booking Purpose is required.</div>
-        </div>
-
-        <div>
-            <label for="additionalComments">Additional Comments*</label><br>
-            <textarea id="additionalComments" [(ngModel)]="additionalComments" name="additionalComments" required #additionalCommentsInput="ngModel"></textarea><br>
-            <div class="error" *ngIf="additionalCommentsInput.invalid && additionalCommentsInput.touched" style="color: red;">Additional Comments are required.</div>
-        </div>
-
-        <!-- <div class="error" *ngIf="bookingForm.invalid && bookingForm.touched">
-            All fields are required.
-        </div> -->
-
-        <button type="submit" [disabled]="bookingForm.invalid">Submit</button>
+    <h3 class="text-primary mb-3">Book Your Room</h3>
+  
+    <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)" class="card p-4 shadow rounded-3">
+  
+      <div *ngIf="!isRoomAvailable" class="alert alert-danger">Room not available for selected dates.</div>
+  
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="checkInDate" name="checkInDate" [(ngModel)]="booking.checkInDate" #checkIn="ngModel" required>
+        <label for="checkInDate">Check-in Date</label>
+        <div *ngIf="submitted && checkIn.invalid" class="text-danger">Check in date is Required</div>
+      </div>
+  
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" [(ngModel)]="booking.checkOutDate" #checkOut="ngModel" required>
+        <label for="checkOutDate">Check-out Date</label>
+        <div *ngIf="submitted && checkOut.invalid" class="text-danger">Required</div>
+      </div>
+  
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="bookingPurpose" name="bookingPurpose" [(ngModel)]="booking.bookingPurpose" #purpose="ngModel" required>
+        <label for="bookingPurpose">Booking Purpose</label>
+        <div *ngIf="submitted && purpose.invalid" class="text-danger">Required</div>
+      </div>
+  
+      <div class="form-floating mb-3">
+        <textarea class="form-control" id="specialRequests" name="specialRequests" [(ngModel)]="booking.specialRequests"></textarea>
+        <label for="specialRequests">Special Requests</label>
+      </div>
+  
+      <div class="form-floating mb-3">
+        <textarea class="form-control" id="additionalComments" name="additionalComments" [(ngModel)]="booking.additionalComments"></textarea>
+        <label for="additionalComments">Additional Comments</label>
+      </div>
+  
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingSuccessModal">Submit</button>
+      </div>
+  
     </form>
-</div>
+  
+  </div>
+  
+
+<div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-labelledby="bookingSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg rounded-3">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="bookingSuccessLabel">Booking Confirmed! 🎉</h5>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body text-center">
+          <h4 class="mb-3">Your room has been successfully booked!</h4>
+          <p class="lead">You will be redirected shortly.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

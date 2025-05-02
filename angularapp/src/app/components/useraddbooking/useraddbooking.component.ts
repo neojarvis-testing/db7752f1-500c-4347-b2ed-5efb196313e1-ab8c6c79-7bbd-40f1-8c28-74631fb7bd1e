@@ -1,79 +1,63 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-useraddbooking',
-//   templateUrl: './useraddbooking.component.html',
-//   styleUrls: ['./useraddbooking.component.css']
-// })
-// export class UseraddbookingComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Booking } from 'src/app/models/booking.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { RoomService } from 'src/app/services/room.service';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-useraddbooking',
   templateUrl: './useraddbooking.component.html',
   styleUrls: ['./useraddbooking.component.css']
 })
+export class UseraddbookingComponent implements OnInit {
 
-export class UseraddbookingComponent {
-  checkIn!: Date;
-  checkOut!: Date;
-  specialRequests!: string;
-  bookingPurpose!: string;
-  additionalComments!: string;
+  roomId!: number;
+  booking: Booking = {
+    userId: 0,
+    roomId: 0,
+    checkInDate: '',
+    checkOutDate: '',
+    status: '',
+    specialRequests: '',
+    bookingPurpose: '',
+    additionalComments: ''
+  };
+  submitted = false;
+  isRoomAvailable = true;
+  isBookingSuccessful = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private authService: AuthService,
+    private roomService: RoomService  
+  ) {}
+
+  ngOnInit(): void {
+    this.roomId = Number(this.route.snapshot.paramMap.get('id'));
+    this.booking.roomId = this.roomId;
+    this.booking.userId = this.authService.getUserId();
+  }
+
+  onSubmit(form: any): void {
+    this.submitted = true;
+    if (!form.invalid){
+      this.roomService.addBooking(this.booking).subscribe((res) => {
+        this.isBookingSuccessful = true;
+        const modalElement = document.getElementById('bookingSuccessModal');
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+        setTimeout(() => this.router.navigate(['/user/my-bookings']), 3000);
+    });
+    }
+
   
-  existingBookings = [
-    { checkIn: new Date('2025-04-28'), checkOut: new Date('2025-05-02'), status: 'Approved' }
-  ]; // Example existing approved bookings
+}
 
-  constructor(private router: Router) {}
-
-  onSubmit() {
-    if (!this.checkIn || !this.checkOut || !this.specialRequests || !this.bookingPurpose || !this.additionalComments) {
-      alert("All fields are required.");
-      return;
-    }
-
-    if (this.checkOut <= this.checkIn) {
-      alert("Check-Out Date must be after Check-In Date.");
-      return;
-    }
-
-    // Check if the selected dates overlap with an existing "Approved" booking
-    const isBooked = this.existingBookings.some(booking =>
-      booking.status === 'Approved' &&
-      ((this.checkIn >= booking.checkIn && this.checkIn <= booking.checkOut) || 
-      (this.checkOut >= booking.checkIn && this.checkOut <= booking.checkOut) ||
-      (this.checkIn <= booking.checkIn && this.checkOut >= booking.checkOut))
-    );
-
-    if (isBooked) {
-      alert("Booking already exists within the selected date range.");
-      return;
-    }
-
-    // Simulate successful booking
-    alert("Successfully Submitted!");
-
-    // Redirect upon clicking "Ok"
-    this.router.navigate(['/userviewmybooking']);
-  }
-
-  getBookingStatus(): string {
-    return this.existingBookings.length > 0 ? "Booked" : "Book Now";
-  }
-
-  userviewmybooking() {
-    this.router.navigate(['/userviewmybooking']);
+  onCancel(): void {
+    this.router.navigate(['/user/view-rooms']);
   }
 }

@@ -1,1 +1,43 @@
-<h1>Available Rooms</h1>
+<div class="container py-4 mt-5">
+
+    <div class="row align-items-center mb-2">
+      <div class="col-md-6 mb-2">
+  
+        <input [(ngModel)]="searchTerm" (input)="search()" class="form-control shadow-sm" placeholder="Search by hotel, room type, or location">
+  
+      </div>
+      <div class="col-md-6 text-end">
+  
+        <select [(ngModel)]="sortDirection" (change)="sortByPrice()" class="form-select w-auto shadow-sm d-inline">
+  
+          <option value="asc">Sort: Low to High</option>
+  
+          <option value="desc">Sort: High to Low</option>
+  
+        </select>
+  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let room of filteredRooms">
+        <div class="card h-100 border-0 shadow-lg rounded-4">
+          <img  src="../../../assets/img/slider-6.jpg" class="card-img-top rounded-top-4" alt="Room image">
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-primary">{{ room.hotelName }} - {{ room.roomType }}</h5>
+            <p class="card-text">
+              <span class="badge bg-success mb-2">Available</span><br>
+              <strong>Location:</strong> {{ room.location }} <br>
+              <strong>Bed:</strong> {{ room.bedType }} |
+              <strong>Rooms:</strong> {{ room.noOfRooms }} <br>
+              <strong>Price:</strong> ₹{{ room.pricePerNight }} / night<br>
+              <strong>Facilities:</strong> {{ room.facilities }} <br>
+              <span class="text-muted small">{{ room.description }}</span>
+            </p>
+          </div>
+          <div class="card-footer bg-white text-center border-0">
+            <button class="btn btn-outline-primary px-4 shadow-sm" (click)="bookRoom(room.roomId)" >Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,41 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { BookingDto } from 'src/app/models/booking-dto.model';
+import { Booking } from 'src/app/models/booking.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { RoomService } from 'src/app/services/room.service';
+declare var bootstrap: any;
 @Component({
   selector: 'app-userviewmybooking',
   templateUrl: './userviewmybooking.component.html',
   styleUrls: ['./userviewmybooking.component.css']
 })
 export class UserviewmybookingComponent implements OnInit {
-  rooms: any[] = []; // Array to hold room data
-
-  constructor(private router: Router) { }
+  rooms: BookingDto[] = []; 
+  userId : string;
+  bookingId: string;
+  constructor(private router: Router , private service : RoomService, private authService : AuthService) { }
 
   ngOnInit(): void {
-    // Sample data initialization on component load
-    this.rooms = [
-      {
-        id: 1,
-        image: 'hero_2.jpg',
-        price: 21000,
-        location: '123 Main St',
-        description: 'King Spacious room with ocean view, WiFi, Air Conditioning, Flat-screen TV, Mini Bar, Jacuzzi',
-        isAvailable: true // Indicates room availability
-      },
-      {
-        id: 2,
-        image: 'room2.jpg',
-        price: 18000,
-        location: '456 Elm Ave',
-        description: 'Cozy room with city view, WiFi, Air Conditioning',
-        isAvailable: true // Initially available
-      }
-    ];
+    this.loadBookings();
+    
   }
 
-  // Redirect to booking request form
-  bookRoom(roomId: number): void {
-    this.router.navigate(['/bookroom', roomId]); // Navigate to booking form
+  loadBookings() {
+    this.userId = this.authService.getUserId().toString();
+    this.service.getBookingsByUserId(this.userId).subscribe(
+      (res)=>{
+        this.rooms= res;
+      }
+    )
+  }
+
+  confirmDelete(id: number){
+    this.bookingId  =id.toString();
+    const modalElement = document.getElementById('deleteConfirmModal');
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+  }
+  deleteConfirmed(){
+      this.service.deleteBooking(this.bookingId).subscribe(
+        ()=>{
+          console.log();
+          
+        }
+      )
   }
 }
 

@@ -5,19 +5,16 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Login } from '../models/login.model';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
 // import jwtDecode from 'jwt-decode';
 
-
-
 @Injectable({
-
   providedIn: 'root'
-
 })
 
 export class AuthService {
 
-  public apiUrl = 'https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io';
+  public apiUrl = environment.apiUrl;
 
   private tokenKey = 'authToken';
   private role: string;

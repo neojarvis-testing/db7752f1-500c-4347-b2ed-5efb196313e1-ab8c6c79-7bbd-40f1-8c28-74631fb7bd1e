@@ -4,6 +4,7 @@ import { Room } from '../models/room.model';
 import { Observable } from 'rxjs';
 import { Booking } from '../models/booking.model';
 import { BookingDto } from '../models/booking-dto.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { BookingDto } from '../models/booking-dto.model';
 })
 export class RoomService {
 
-  apiUrl:string = "https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io";
+  apiUrl:string = environment.apiUrl;
   
   constructor(private client:HttpClient) { }
 
@@ -46,8 +47,8 @@ export class RoomService {
     return this.client.get<BookingDto[]>(`${this.apiUrl}/api/booking`, {headers: this.getAuthHeaders()});
   }
 
-  getBookingsByUserId(userId:string):Observable<Booking[]>{
-    return this.client.get<Booking[]>(`${this.apiUrl}/api/booking/user/${userId}`, {headers: this.getAuthHeaders()});
+  getBookingsByUserId(userId:string):Observable<BookingDto[]>{
+    return this.client.get<BookingDto[]>(`${this.apiUrl}/api/booking/user/${userId}`, {headers: this.getAuthHeaders()});
   }
 
   addBooking(booking:Booking):Observable<Booking>{

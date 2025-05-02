@@ -30,8 +30,7 @@ builder.Services.AddCors(options =>
 
 
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
+   // builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddDbContext<ApplicationDbContext>(e=> e.UseSqlServer(builder.Configuration.GetConnectionString("myconn")));
     builder.Services.AddScoped<RoomService>();
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -62,8 +61,6 @@ builder.Services.AddCors(options =>
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
-
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -72,7 +69,6 @@ builder.Services.AddCors(options =>
 
 app.UseCors();
 
-// Might fix CORS error.
 app.Use(async (context, next) =>
 {
     if (context.Request.Method == HttpMethods.Options)
