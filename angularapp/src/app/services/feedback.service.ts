@@ -13,7 +13,7 @@ import { UserDTO } from '../models/user-dto.model';
   providedIn: 'root'
 })
 export class FeedbackService {
-   apiUrl : string = "https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io";
+   apiUrl : string = environment.apiUrl;
  
   constructor(private http: HttpClient, private authService: AuthService) {}
   private getHeaders(): HttpHeaders {

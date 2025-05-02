@@ -40,11 +40,28 @@ namespace dotnetapp.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Booking>> GetBookingsByUserId(int userId)
+        public async Task<IEnumerable<BookingDto>> GetBookingsByUserId(int userId)
         {
             return await _context.Bookings
                 .Where(b => b.UserId == userId)
                 .Include(b => b.Room)
+                .Select(b => new BookingDto
+                {
+                    BookingId = b.BookingId,
+                    RoomId = b.Room.RoomId,
+                    CheckInDate = b.CheckInDate,
+                    CheckOutDate = b.CheckOutDate,
+                    Status = b.Status,
+                    SpecialRequests = b.SpecialRequests,
+                    BookingPurpose = b.BookingPurpose,
+                    AdditionalComments = b.AdditionalComments,
+                    UserId = b.User.UserId,
+                    Username = b.User.Username,
+                    HotelName = b.Room.HotelName,
+                    RoomType = b.Room.RoomType,
+                    PricePerNight = b.Room.PricePerNight,
+                    Location = b.Room.Location
+                })
                 .ToListAsync();
         }
 
@@ -54,6 +71,9 @@ namespace dotnetapp.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+
+        
         public async Task<bool> UpdateBooking(int bookingId,Booking booking)
         {
             var existingBooking = await _context.Bookings.FindAsync(bookingId);

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace dotnetapp.Controllers
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,User")]
     [Route("api/room")]
     public class RoomController : ControllerBase
     {

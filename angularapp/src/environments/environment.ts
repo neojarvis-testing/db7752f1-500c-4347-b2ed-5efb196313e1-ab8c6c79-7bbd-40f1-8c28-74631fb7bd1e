@@ -6,9 +6,9 @@
  
 export const environment = {
   production: false,
-  apiUrl: 'https://8080-cfcabbfcbfaaebedbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io',
-  //use this
+  apiUrl: "https://8080-ffbccfbdadbaaafbbebbabccbbdfcfbbde.premiumproject.examly.io"
 };
+
  
 /*
  * For easier debugging in development mode, you can import the following file

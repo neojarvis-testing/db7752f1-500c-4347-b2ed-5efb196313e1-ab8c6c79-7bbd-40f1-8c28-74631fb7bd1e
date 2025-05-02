@@ -30,7 +30,7 @@ namespace dotnetapp.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookingsByUserId(int userId)
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookingsByUserId(int userId)
         {
             var bookings = await _bookingService.GetBookingsByUserId(userId);
             return Ok(bookings); 

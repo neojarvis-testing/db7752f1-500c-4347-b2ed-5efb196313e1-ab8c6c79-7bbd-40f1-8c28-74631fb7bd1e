@@ -50,7 +50,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'add-booking', component: UseraddbookingComponent },
+      { path: 'add-booking/:id', component: UseraddbookingComponent },
       { path: 'add-feedback', component: UseraddfeedbackComponent },
       { path: 'view-rooms', component: UserviewroomComponent },
       { path: 'my-bookings', component: UserviewmybookingComponent },
