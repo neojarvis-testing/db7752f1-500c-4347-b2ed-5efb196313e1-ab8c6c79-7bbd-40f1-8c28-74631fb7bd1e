@@ -9,29 +9,11 @@ import { RoomService } from 'src/app/services/room.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  ngOnInit(): void {
+   
+  }
  
-  rooms: Room[] = [];
-
-  constructor(private roomService: RoomService) {}
-
-  ngOnInit() {
-    console.log("View room");
-    
-    this.roomService.getAllRooms().subscribe(rooms => {
-        this.rooms= rooms ; 
-        console.log(this.rooms);
-    });
-  }
-
-  editRoom(room: Room) {
-    alert(`Editing room: ${room.hotelName}`);
-  }
-
-  deleteRoom(index: number) {
-    if (confirm('Are you sure you want to delete this room?')) {
-      this.rooms.splice(index, 1); 
-    }
-  }
+ 
  
 
 }

@@ -15,11 +15,28 @@ namespace dotnetapp.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Booking>> GetAllBookings()
+        public async Task<IEnumerable<BookingDto>> GetAllBookings()
         {
             return await _context.Bookings
                 .Include(b => b.Room)
                 .Include(b => b.User)
+                .Select(b => new BookingDto
+                {
+                    BookingId = b.BookingId,
+                    RoomId = b.Room.RoomId,
+                    CheckInDate = b.CheckInDate,
+                    CheckOutDate = b.CheckOutDate,
+                    Status = b.Status,
+                    SpecialRequests = b.SpecialRequests,
+                    BookingPurpose = b.BookingPurpose,
+                    AdditionalComments = b.AdditionalComments,
+                    UserId = b.User.UserId,
+                    Username = b.User.Username,
+                    HotelName = b.Room.HotelName,
+                    RoomType = b.Room.RoomType,
+                    PricePerNight = b.Room.PricePerNight,
+                    Location = b.Room.Location
+                })
                 .ToListAsync();
         }
 

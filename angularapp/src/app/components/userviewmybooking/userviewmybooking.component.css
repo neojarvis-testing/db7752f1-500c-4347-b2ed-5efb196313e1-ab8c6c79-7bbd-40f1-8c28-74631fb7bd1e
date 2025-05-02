@@ -1,4 +1,4 @@
-/* General Reset */
+
 body {
   margin: 0;
   padding: 0;
@@ -8,7 +8,6 @@ body {
   line-height: 1.6;
 }
 
-/* Header Navigation */
 header {
   background-color: #007bff;
   color: #fff;
@@ -211,3 +210,4 @@ header {
   background-color: #c82333;
   transform: scale(1.05);
 }
+

@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   activeNavbar: string = 'app'; 
+  title: any;
   constructor(private authService: AuthService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -31,7 +32,6 @@ export class AppComponent {
       }
     } else {
       console.log("Default");
-      
       this.activeNavbar = 'app';
     }
   }
