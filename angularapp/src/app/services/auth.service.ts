@@ -36,7 +36,11 @@ export class AuthService {
         if (response.token) {
           const decodedToken: any = this.decodeToken(response.token);
           console.log("----", decodedToken);
+
+
           localStorage.setItem(this.tokenKey, response.token);
+
+          
           this.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
           this.userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
           const userId = decodedToken['UserId'];
@@ -90,4 +94,5 @@ export class AuthService {
     const userName = localStorage.getItem('UserName');
     return userName;
   }
+
 }

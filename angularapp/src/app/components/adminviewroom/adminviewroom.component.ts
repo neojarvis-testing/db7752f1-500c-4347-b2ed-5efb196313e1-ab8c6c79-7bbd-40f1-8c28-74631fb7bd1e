@@ -70,9 +70,9 @@ export class AdminviewroomComponent implements OnInit {
   
           const modalElement = document.getElementById('deleteConfirmModal');
           if (modalElement) {
-            const modalInstance = bootstrap.Modal.getInstance(modalElement); // ✅ Get existing modal instance
+            const modalInstance = bootstrap.Modal.getInstance(modalElement); 
             if (modalInstance) {
-              modalInstance.hide(); // ✅ Properly hide
+              modalInstance.hide(); 
             }
           }
   

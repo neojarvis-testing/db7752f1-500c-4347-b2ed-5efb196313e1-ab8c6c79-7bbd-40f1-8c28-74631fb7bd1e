@@ -12,27 +12,30 @@ declare var bootstrap: any;
 })
 export class UseraddbookingComponent implements OnInit {
 
-  roomId!: number;
+  roomId: number;
   booking: Booking = {
     userId: 0,
     roomId: 0,
     checkInDate: '',
     checkOutDate: '',
-    status: '',
+    status: 'pending',
     specialRequests: '',
     bookingPurpose: '',
     additionalComments: ''
   };
+
+
   submitted = false;
   isRoomAvailable = true;
   isBookingSuccessful = false;
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router, 
+    private router: Router,
     private authService: AuthService,
-    private roomService: RoomService  
-  ) {}
+    private roomService: RoomService
+  ) { }
 
   ngOnInit(): void {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,22 +43,34 @@ export class UseraddbookingComponent implements OnInit {
     this.booking.userId = this.authService.getUserId();
   }
 
-  onSubmit(form: any): void {
+  onSubmit(): void {
+
+
+    if (new Date(this.booking.checkOutDate) <= new Date(this.booking.checkInDate)) {
+      this.errorMessage = "Check-out date must be later than check-in date.";
+      return;
+    }
     this.submitted = true;
-    if (!form.invalid){
+    if (this.booking.checkInDate && this.booking.checkOutDate && this.booking.bookingPurpose) {
       this.roomService.addBooking(this.booking).subscribe((res) => {
         this.isBookingSuccessful = true;
+        console.log("booking", this.booking);
+
         const modalElement = document.getElementById('bookingSuccessModal');
         if (modalElement) {
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        }
-        setTimeout(() => this.router.navigate(['/user/my-bookings']), 3000);
-    });
-    }
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
 
-  
-}
+        }
+      });
+    }
+  }
+
+  ConfirmOkay() {
+    this.router.navigate(['/user/my-bookings'])
+  }
 
   onCancel(): void {
     this.router.navigate(['/user/view-rooms']);
