@@ -12,16 +12,17 @@
         <div *ngIf="submitted && checkIn.invalid" class="text-danger">Check in date is Required</div>
       </div>
   
+      
       <div class="form-floating mb-3">
         <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" [(ngModel)]="booking.checkOutDate" #checkOut="ngModel" required>
         <label for="checkOutDate">Check-out Date</label>
-        <div *ngIf="submitted && checkOut.invalid" class="text-danger">Required</div>
+        <div *ngIf="submitted && checkOut.invalid" class="text-danger">Check out date is required</div>
       </div>
   
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="bookingPurpose" name="bookingPurpose" [(ngModel)]="booking.bookingPurpose" #purpose="ngModel" required>
         <label for="bookingPurpose">Booking Purpose</label>
-        <div *ngIf="submitted && purpose.invalid" class="text-danger">Required</div>
+        <div *ngIf="submitted && purpose.invalid" class="text-danger">Booking purpose</div>
       </div>
   
       <div class="form-floating mb-3">
@@ -33,10 +34,12 @@
         <textarea class="form-control" id="additionalComments" name="additionalComments" [(ngModel)]="booking.additionalComments"></textarea>
         <label for="additionalComments">Additional Comments</label>
       </div>
-  
+      <div class="text-danger text-center mt-3" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
       <div class="d-flex justify-content-end gap-2">
         <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingSuccessModal">Submit</button>
+        <button type="submit" class="btn btn-success" data-bs-toggle="modal" (click)="onSubmit()">Submit</button>
       </div>
   
     </form>
@@ -56,7 +59,7 @@
           <p class="lead">You will be redirected shortly.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="ConfirmOkay()">Okay</button>
         </div>
       </div>
     </div>

@@ -32,7 +32,6 @@ export class UseraddfeedbackComponent implements OnInit {
 
   loadUserFeedbacks(): void {
     const userId = this.authService.getUserId();
-
     this.feedbackService.getAllFeedbacksByUserId(userId).subscribe({
       next: (feedbackList) => {
 
