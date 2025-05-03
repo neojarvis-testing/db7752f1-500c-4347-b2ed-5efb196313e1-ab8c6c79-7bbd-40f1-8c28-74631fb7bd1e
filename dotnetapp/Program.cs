@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
 
 
     builder.Services.AddControllers();
-   // builder.Services.AddEndpointsApiExplorer();
+   builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddDbContext<ApplicationDbContext>(e=> e.UseSqlServer(builder.Configuration.GetConnectionString("myconn")));
     builder.Services.AddScoped<RoomService>();
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -69,19 +69,6 @@ builder.Services.AddCors(options =>
 
 app.UseCors();
 
-app.Use(async (context, next) =>
-{
-    if (context.Request.Method == HttpMethods.Options)
-    {
-        context.Response.StatusCode = 200;
-        await context.Response.CompleteAsync();
-    }
-    else
-    {
-        await next();
-    }
-});
-//
 
 app.UseHttpsRedirection();
 app.UseAuthentication(); 

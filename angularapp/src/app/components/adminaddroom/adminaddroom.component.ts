@@ -14,8 +14,8 @@ export class AdminaddroomComponent {
   room: Room = {
     hotelName: '',
     roomType: '',
-    noOfRooms: 0,
-    pricePerNight: 0,
+    noOfRooms: null,
+    pricePerNight: null,
     location: '',
     bedType: '',
     isAvailable: false,
@@ -43,6 +43,10 @@ export class AdminaddroomComponent {
         },
         (error: any) => {
           console.log('Room addition failed', error);
+          if(error.status === 400 && error.error?.errorMessage)
+          {
+            this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
+          }
           this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
         }
       );
