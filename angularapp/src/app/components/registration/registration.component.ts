@@ -50,40 +50,77 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-  user:User = {
+  user: User = {
     email: '',
     password: '',
     userName: '',
     mobileNumber: '',
     userRole: ''
   };
-  confirm_password:string = '';
+  confirm_password: string = '';
   userExists = false;
-  errorMessage: string ='';
+  errorMessage: string = '';
+  adminCode: string = '';
 
-  constructor(private _service:AuthService, private route : Router) {}
+  constructor(private _service: AuthService, private route: Router) { }
 
   onSubmit(form: NgForm) {
-    if (form.valid) {
-        console.log("UserBefore Subscribe: ", this.user);
-        this._service.register(this.user).subscribe(response => {
+    if (
+      this.user.email &&
+      this.user.password &&
+      this.user.userName &&
+      this.user.mobileNumber &&
+      this.user.userRole
+    ) {
+      if (this.user.userRole === 'Admin') {
+        if (this.adminCode === 'QP10WO') {
+          console.log('Admin login');
+          this._service.register(this.user).subscribe(
+            (response) => {
+              // console.log("User registered successfully", response);
+              this.route.navigate(['login']);
+            },
+            (error) => {
+              console.log('Registration failed', error);
+              if (error.status === 400 && error.error?.message) {
+                this.errorMessage = error.error.message;
+              } else {
+                this.errorMessage = 'An unexpected error occurred. Please try again.';
+              }
+            }
+          );
+        } else {
+          this.errorMessage = 'Incorrect Code, Please try again.';
+        }
+      } else {
+        this._service.register(this.user).subscribe(
+          (response) => {
             // console.log("User registered successfully", response);
             this.route.navigate(['login']);
-        }, (error) => {
-            console.log('Registration failed', error); 
+          },
+          (error) => {
+            console.log('Registration failed', error);
             if (error.status === 400 && error.error?.message) {
-                this.errorMessage = error.error.message; 
+              this.errorMessage = error.error.message;
             } else {
-                this.errorMessage = 'An unexpected error occurred. Please try again.';
+              this.errorMessage = 'An unexpected error occurred. Please try again.';
             }
-        });
+          }
+        );
+        console.log('UserBefore Subscribe: ', this.user);
+      }
     } else {
-        this.errorMessage = 'Invalid Password';
+      // this.errorMessage = 'Try a different password with at least 6 characters, including a special character and a number.';
+
     }
-}
-
-
-  checkFormValidity() {
-    this.userExists = false; 
   }
-}
+  isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  }
+  
+  
+  checkFormValidity() {
+      this.userExists = false;
+    }
+  }

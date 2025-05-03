@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using dotnetapp.Services;
 using dotnetapp.Models;
 using Microsoft.AspNetCore.Authorization;
+using dotnetapp.Exceptions;
 
 namespace dotnetapp.Controllers
 {
@@ -65,6 +66,10 @@ namespace dotnetapp.Controllers
                     return StatusCode(500, new { status = "Error", message = "Failed to add room" });
                 }
                 return Ok(new { status = "Success", message = "Room added successfully" });
+            }
+            catch (RoomException ex)
+            {
+                return StatusCode(400, new { status = "Bad Request", ex.Message });
             }
             catch (Exception ex)
             {

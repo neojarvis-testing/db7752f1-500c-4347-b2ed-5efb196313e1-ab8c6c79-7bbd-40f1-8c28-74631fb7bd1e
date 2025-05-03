@@ -14,24 +14,29 @@
         <div class="mb-3">
           <label for="username" class="form-label">Email Address</label>
           <input type="email" id="username" name="Username" class="form-control rounded-3"
-            [(ngModel)]="loginModel.Email" required #username="ngModel"
-            [ngModelOptions]="{standalone : true}" />
-          <div class="text-danger small" *ngIf="username.invalid && (username.dirty || username.touched)">
+            [(ngModel)]="loginModel.Email" required/>
+
+          <!-- <div class="text-danger small" *ngIf="username.invalid && (username.dirty || username.touched)">
             Email is required
-          </div>
+          </div> -->
+
+          <small class="text-danger" *ngIf="loginForm.submitted && !loginModel.Email">Email is required</small>
+                <small class="text-danger"
+                  *ngIf="loginForm.submitted && loginModel.Email && !isValidEmail(loginModel.Email)">
+                  Invalid Email
+                </small>
         </div>
 
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" id="password" name="Password" class="form-control rounded-3"
-            [(ngModel)]="loginModel.Password" required #password="ngModel"
-            [ngModelOptions]="{standalone : true}" />
-          <div class="text-danger small" *ngIf="password.invalid && (password.dirty || password.touched)">
+            [(ngModel)]="loginModel.Password" required/>
+          <div class="text-danger small" *ngIf="!loginModel.Password && loginForm.submitted" >
             Password is required
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill" [disabled]="loginForm.invalid">
+        <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill" >
           Login
         </button>
       </form>

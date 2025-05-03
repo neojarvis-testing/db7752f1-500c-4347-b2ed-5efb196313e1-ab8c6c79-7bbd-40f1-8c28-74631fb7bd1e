@@ -58,8 +58,8 @@ namespace dotnetapp.Services
                 }
 
            
-            if (!await roleManager.RoleExistsAsync(role))
-                await roleManager.CreateAsync(new IdentityRole(role));
+            // if (!await roleManager.RoleExistsAsync(role))
+            //     await roleManager.CreateAsync(new IdentityRole(role));
 
             await userManager.AddToRoleAsync(user, role);
             
