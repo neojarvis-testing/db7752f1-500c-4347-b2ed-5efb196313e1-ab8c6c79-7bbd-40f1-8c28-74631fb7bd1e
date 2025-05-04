@@ -92,13 +92,20 @@ namespace dotnetapp.Controllers
                 {
                     return NotFound("Cannot find any room");
                 }
-                await _roomService.UpdateRoom(roomId, room);
+                var update = await _roomService.UpdateRoom(roomId, room);
+                if (!update)
+                {
+                    return StatusCode(500, new { status = "Error", message = "Failed to add room" });
+                }
                 return Ok(new { status = "Success", message = "Room updated successfully" });
-                 
             }
-            catch (System.Exception ex)
+            catch (RoomException ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(400, new { status = "Bad Request", ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Error", message = "An unexpected error occurred" });
             }
         }
 
