@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/services/room.service';
-declare var bootstrap: any;
 
 @Component({
   selector: 'app-adminviewroom',
@@ -10,10 +9,15 @@ declare var bootstrap: any;
   styleUrls: ['./adminviewroom.component.css']
 })
 export class AdminviewroomComponent implements OnInit {
-  rooms: Room[] = []; 
+  rooms: Room[] = [];
   filteredRoomList: Room[] = [];
   searchTerm: string = '';
-  roomToDelete: Room | null = null; 
+  roomToDelete: Room | null = null;
+  showDeleteModal = false;
+
+  isLoadingRooms = false;
+  isDeleting = false;
+  errorMessage: string | null = null;
 
   constructor(private roomService: RoomService, private router: Router) {}
 
@@ -22,13 +26,16 @@ export class AdminviewroomComponent implements OnInit {
   }
 
   loadAllRooms() {
+    this.isLoadingRooms = true;
     this.roomService.getAllRooms().subscribe(
       rooms => {
         this.rooms = rooms;
         this.filteredRoomList = [...rooms];
+        this.isLoadingRooms = false;
       },
       error => {
         console.error('Error loading rooms:', error);
+        this.isLoadingRooms = false;
       }
     );
   }
@@ -54,32 +61,33 @@ export class AdminviewroomComponent implements OnInit {
 
   deleteRoom(room: Room) {
     this.roomToDelete = room;
-    const modalElement = document.getElementById('deleteConfirmModal');
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    }
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.roomToDelete = null;
+    this.isDeleting = false;
+    this.errorMessage = null;
   }
 
   confirmDelete() {
     if (this.roomToDelete) {
+      this.isDeleting = true;
       this.roomService.deleteRoom(this.roomToDelete.roomId).subscribe(
         () => {
+          // Success: Remove room from the list
           this.rooms = this.rooms.filter(room => room.roomId !== this.roomToDelete?.roomId);
           this.filteredRoomList = this.filteredRoomList.filter(room => room.roomId !== this.roomToDelete?.roomId);
-  
-          const modalElement = document.getElementById('deleteConfirmModal');
-          if (modalElement) {
-            const modalInstance = bootstrap.Modal.getInstance(modalElement); 
-            if (modalInstance) {
-              modalInstance.hide(); 
-            }
-          }
-  
-          this.roomToDelete = null;
+          this.closeDeleteModal();
         },
         (error) => {
-          console.error('Error deleting room:', error);
+          this.isDeleting = false;
+          if (error?.status === 400 && error?.error?.message) {
+            this.errorMessage = error.error.message;  
+          } else {
+            this.errorMessage = 'An unexpected error occurred while deleting the room.';
+          }
         }
       );
     }

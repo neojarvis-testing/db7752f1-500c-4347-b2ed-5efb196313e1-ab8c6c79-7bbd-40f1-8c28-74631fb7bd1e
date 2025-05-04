@@ -94,17 +94,22 @@
 
 
 
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg border-0">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title fw-bold" id="successModalLabel">Room Added Successfully!</h5>
-      </div>
-      <div class="modal-body">
-        <p>Room Added Successfully!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal">Close</button>
+
+
+<div *ngIf="showSuccessModal" class="custom-modal-backdrop">
+  <div class="custom-modal d-flex align-items-center justify-content-center">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-sm border-0 bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title">Success</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p class="mb-0">Room has been added successfully.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark w-100" (click)="closeModal()">Close</button>
+        </div>
       </div>
     </div>
   </div>

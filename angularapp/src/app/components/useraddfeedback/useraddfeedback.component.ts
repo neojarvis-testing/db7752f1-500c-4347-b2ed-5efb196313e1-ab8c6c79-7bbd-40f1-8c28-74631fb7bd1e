@@ -34,12 +34,14 @@ export class UseraddfeedbackComponent implements OnInit {
     const userId = this.authService.getUserId();
     this.feedbackService.getAllFeedbacksByUserId(userId).subscribe({
       next: (feedbackList) => {
-
-        this.feedbacks = feedbackList.sort((a, b) => {
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
-          return dateB - dateA; 
-        });
+        if (feedbackList.length > 0) {
+          this.feedbacks = feedbackList.sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateB - dateA; 
+          })
+        }
+      ;
       },
       error: (error) => console.error('Failed to load feedbacks:', error)
     });
@@ -73,7 +75,6 @@ export class UseraddfeedbackComponent implements OnInit {
     }
   }
 
-  // Delete feedback by ID
   onDelete(feedbackId: number): void {
     if (feedbackId) {
       this.feedbackService.deleteFeedback(feedbackId).subscribe({

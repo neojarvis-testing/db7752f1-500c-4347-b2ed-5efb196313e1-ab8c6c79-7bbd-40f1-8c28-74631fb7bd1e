@@ -35,6 +35,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
+    data: { expectedRole: 'Admin' },
     children: [ 
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-room', component: AdminaddroomComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
     path: 'user',
     component: UserLayoutComponent,
     canActivate: [AuthGuard],
+    data: { expectedRole: 'User' }, 
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'add-booking/:id', component: UseraddbookingComponent },

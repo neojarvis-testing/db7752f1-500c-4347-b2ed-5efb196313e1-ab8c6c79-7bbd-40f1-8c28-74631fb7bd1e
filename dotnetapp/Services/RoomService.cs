@@ -82,7 +82,7 @@ namespace dotnetapp.Services
             bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId);
             if (isReferenced)
             {
-                throw new RoomException("Room cannot be deleted as it is referenced in a booking.");
+                throw new RoomException("This room cannot be deleted because it is currently associated with existing bookings.");
                 return false;
             }
     

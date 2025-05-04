@@ -24,33 +24,27 @@ export class AdminaddroomComponent {
     imageUrl: ''
   };
   errorMessage: string= '';
+  showSuccessModal = false;
 
   constructor(private roomService: RoomService, private router : Router) { }
 
   addRoom(form: any) {
-    if (form.valid) {      
+    if (form.valid) {
       this.roomService.addRoom(this.room).subscribe(
         (res: any) => {
           console.log('Room added successfully', res);
-          setTimeout(() => {
-            const modalElement = document.getElementById('successModal');
-            if (modalElement) {
-              const modal = new bootstrap.Modal(modalElement);
-              modal.show();
-            }
-          }, 0);
-           form.resetForm();
+          this.showSuccessModal = true;
+          form.resetForm();
         },
         (error: any) => {
           console.log('Room addition failed', error);
-          if(error.status === 400 && error.error?.errorMessage)
-          {
-            this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
-          }
           this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
         }
       );
     }
   }
   
+  closeModal() {
+    this.showSuccessModal = false;
+  }
 }

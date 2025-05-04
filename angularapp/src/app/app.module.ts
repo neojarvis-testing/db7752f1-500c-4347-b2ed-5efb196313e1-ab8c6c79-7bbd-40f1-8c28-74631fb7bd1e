@@ -19,13 +19,14 @@ import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfe
 import { UserviewroomComponent } from './components/userviewroom/userviewroom.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewmybookingComponent } from './components/userviewmybooking/userviewmybooking.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { GuestLayoutComponent } from './components/guest-layout/guest-layout.component';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './components/user-layout/user-layout.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,10 +56,18 @@ import { UserLayoutComponent } from './components/user-layout/user-layout.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    HttpClientModule,  // For making HTTP requests
+    FormsModule        // For template-driven forms
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    // This tells Angular to use the AuthInterceptor for all HTTP requests
+    // It checks if the user is logged in and adds the token to the request header.
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true // This makes sure the interceptor works alongside others, not replacing them.
+    }
+  ],
+  bootstrap: [AppComponent]  // This is the root component that will be bootstrapped when the app starts.
 })
 export class AppModule { }
