@@ -46,8 +46,12 @@ export class AdmineditroomComponent implements OnInit {
           console.log('Room updated successfully', res);
           this.showSuccessModal = true; 
         },
-        (error) => {
-          console.log('Room addition failed --- ', error.error.message);
+        (error: any) => {
+          console.log('Room updation failed', error);
+          if(error.status === 400 && error.error?.errorMessage)
+          {
+            this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
+          }
           this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
         }
       );

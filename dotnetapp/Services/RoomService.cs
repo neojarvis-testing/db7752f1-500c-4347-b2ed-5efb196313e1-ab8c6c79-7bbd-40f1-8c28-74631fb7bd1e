@@ -37,6 +37,7 @@ namespace dotnetapp.Services
                 // System.Console.WriteLine(roomCount);
             if ((roomCount + room.NoOfRooms) > 10)
             {
+                
               throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
                 // return false;
             }
@@ -51,15 +52,17 @@ namespace dotnetapp.Services
             var existingRoom = await _context.Rooms.FindAsync(roomId);
             if (existingRoom == null)
             {
+                Console.WriteLine("=======================");
                 return false;
             }
     
             int roomCount = await _context.Rooms.Where(r => r.HotelName.ToLower() == updatedRoom.HotelName.ToLower()).SumAsync(r => r.NoOfRooms);
-            // System.Console.WriteLine("-----------------");
-            // System.Console.WriteLine("room count" + roomCount);
-            if (roomCount > 10)
+            //System.Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            //System.Console.WriteLine(roomCount);
+            //System.Console.WriteLine(roomCount + updatedRoom.NoOfRooms - existingRoom.NoOfRooms);
+            if ((roomCount + updatedRoom.NoOfRooms - existingRoom.NoOfRooms) > 10)
             {
-                throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
+              throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
             }
     
             _context.Entry(existingRoom).CurrentValues.SetValues(updatedRoom);
