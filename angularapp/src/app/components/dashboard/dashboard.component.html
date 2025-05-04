@@ -1,1 +1,125 @@
-<h2>Dashboard</h2>
+<div class="container py-4">
+    <h2 class="mb-2 text-dark fw-bold">Admin Dashboard</h2>
+    
+
+    <div *ngIf="loading" class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  
+
+    <div *ngIf="!loading" class="row g-4 mb-5">
+      <div class="col-md-2 col-sm-6" *ngIf="summary.totalUsers">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-people-fill display-6 text-primary mb-2"></i>
+            <p class="text-muted mb-1">Total Users</p>
+            <h5 class="fw-bold">{{ summary.totalUsers }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-door-open-fill display-6 text-success mb-2"></i>
+            <p class="text-muted mb-1">Total Rooms</p>
+            <h5 class="fw-bold">{{ summary.totalRooms }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-check-circle-fill display-6 text-success mb-2"></i>
+            <p class="text-muted mb-1">Confirmed</p>
+            <h5 class="fw-bold">{{ summary.totalConfirmed }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-hourglass-split display-6 text-warning mb-2"></i>
+            <p class="text-muted mb-1">Pending</p>
+            <h5 class="fw-bold">{{ summary.totalPending }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-x-circle-fill display-6 text-danger mb-2"></i>
+            <p class="text-muted mb-1">Rejected</p>
+            <h5 class="fw-bold">{{ summary.totalRejected }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-journal-check display-6 text-info mb-2"></i>
+            <p class="text-muted mb-1">Total Bookings</p>
+            <h5 class="fw-bold">{{ summary.totalBookings }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div *ngIf="!loading" class="container py-4">
+        <!-- <h2 class="mb-4 text-dark fw-bold">Admin Dashboard</h2> -->
+      
+        <!-- Recent Bookings -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+            <span>Recent Bookings</span>
+            <!-- <span class="badge bg-primary">{{ recentBookings.length }} Bookings</span> -->
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let booking of recentBookings" class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1 text-dark fw-semibold">#{{ booking.bookingId }} - {{ booking.hotelName }}</h6>
+                <small class="text-muted">{{ booking.roomType }} | {{ booking.username }}</small>
+              </div>
+              <span class="badge rounded-pill" [ngClass]="{
+                'bg-success': booking.status === 'Confirmed',
+                'bg-warning': booking.status === 'Pending',
+                'bg-danger': booking.status === 'Rejected'
+              }">
+                <i class="bi" [ngClass]="{
+                  'bi-check-circle-fill': booking.status === 'Confirmed',
+                  'bi-hourglass-split': booking.status === 'Pending',
+                  'bi-x-circle-fill': booking.status === 'Rejected'
+                }"></i> {{ booking.status }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      
+        <!-- Recent Feedbacks -->
+        <div class="card shadow-sm">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+            <span>Recent Feedbacks</span>
+            <!-- <span class="badge bg-info">{{ recentFeedbacks.length }} Feedbacks</span> -->
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let fb of recentFeedbacks" class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ fb.userId }}:</strong>
+                <p class="mb-0 text-muted">{{ fb.feedbackText }}</p>
+              </div>
+              <small class="text-muted">{{ fb.date | date: 'short' }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+
+  </div>
+  

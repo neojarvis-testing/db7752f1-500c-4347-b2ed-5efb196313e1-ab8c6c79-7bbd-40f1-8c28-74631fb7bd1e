@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h2 class="text-center text-success">Add Room</h2>
+  <h2 class="text-center text-secondary fw-bold ">Add Room</h2>
   <form #roomForm="ngForm" (ngSubmit)="addRoom(roomForm)" [class.was-validated]="roomForm.submitted">
     <div class="row">
       <!-- Left Column -->
@@ -88,7 +88,7 @@
       </div>
     </div>
     <div *ngIf="errorMessage">{{errorMessage}}</div>
-    <button type="submit" class="btn btn-success mt-3 w-100">Add Room</button>
+    <button type="submit" class="btn btn-secondary mt-3 w-100">Add Room</button>
   </form>
 </div>
 

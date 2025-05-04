@@ -1,8 +1,8 @@
 <div class="container">
-  <h2 class="text-center text-primary mb-4">Available Rooms</h2>
+  <h2 class="text-center text-dark  fw-bold mb-4">Available Rooms</h2>
 
   <div class="input-group mb-4">
-    <span class="input-group-text bg-primary text-white"><i class="bi bi-search"></i></span>
+    <span class="input-group-text bg-dark  text-white"><i class="bi bi-search"></i></span>
     <input type="text" class="form-control shadow-sm" placeholder="Search by hotel name" [(ngModel)]="searchTerm"
       (ngModelChange)="onSearchChange()" minlength="3" />
   </div>
@@ -17,8 +17,8 @@
 
   <!-- Room Table -->
   <div *ngIf="!isLoadingRooms" class="table-responsive shadow rounded">
-    <table class="table table-bordered table-hover align-middle">
-      <thead class="table-success text-center">
+    <table class="table table-bordered table-hover align-middle table-striped">
+      <thead class="table-dark text-center">
         <tr>
           <th>Hotel Name</th>
           <th>Room Type</th>
@@ -50,8 +50,8 @@
             <img [src]="room.imageUrl" class="img-thumbnail" alt="Room Image" style="max-width: 80px;" />
           </td>
           <td>
-            <button class="btn btn-outline-warning btn-sm me-2" (click)="editRoom(room.roomId)">Edit</button>
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteRoom(room)">Delete</button>
+            <button class="btn btn-warning btn-sm me-2" (click)="editRoom(room.roomId)">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteRoom(room)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="filteredRoomList.length === 0">

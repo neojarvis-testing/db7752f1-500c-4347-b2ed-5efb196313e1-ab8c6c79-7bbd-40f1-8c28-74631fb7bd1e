@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { Booking } from '../models/booking.model';
 import { BookingDto } from '../models/booking-dto.model';
 import { environment } from 'src/environments/environment';
+import { DashboardSummary } from '../models/dashboard-summary.model';
 
 
 @Injectable({
@@ -20,6 +21,11 @@ export class RoomService {
     const token = localStorage.getItem('authToken');
     return new HttpHeaders({'Authorization':`Bearer ${token}`});
   }
+
+  getSummary(): Observable<DashboardSummary> {
+    return this.client.get<DashboardSummary>(`${this.apiUrl}/api/room/dashboard-summary`, {headers: this.getAuthHeaders()});
+  }
+
 
   getAllRooms():Observable<Room[]>{
     return this.client.get<Room[]>(`${this.apiUrl}/api/room`, {headers: this.getAuthHeaders()});

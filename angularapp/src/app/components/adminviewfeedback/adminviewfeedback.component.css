@@ -5,13 +5,12 @@
   
   .table th,
   .table td {
-    vertical-align: middle;
+    vertical-align: center;
     text-align: center;
   }
   
   .btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+    
     transition: background-color 0.3s ease;
   }
   

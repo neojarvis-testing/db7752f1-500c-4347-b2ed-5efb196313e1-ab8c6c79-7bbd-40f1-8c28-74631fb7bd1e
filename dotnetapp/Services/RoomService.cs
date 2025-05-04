@@ -89,6 +89,20 @@ namespace dotnetapp.Services
             return true;
         }
 
+        public async Task<DashboardSummaryDto> GetDashboardSummaryAsync()
+        {
+            return new DashboardSummaryDto
+            {
+                TotalUsers = await _context.Users.CountAsync(),
+                TotalRooms = await _context.Rooms.CountAsync(),
+                TotalBookings = await _context.Bookings.CountAsync(),
+                TotalPending = await _context.Bookings.CountAsync(b => b.Status == "Pending"),
+                TotalConfirmed = await _context.Bookings.CountAsync(b => b.Status == "Confirmed"),
+                TotalRejected = await _context.Bookings.CountAsync(b => b.Status == "Cancelled" || b.Status == "Rejected"),
+                TotalFeedbacks = await _context.Feedbacks.CountAsync()
+            };
+        }
+
     }
 
 }
