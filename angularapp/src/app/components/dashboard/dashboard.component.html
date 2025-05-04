@@ -1,1 +1,100 @@
-<h2>Dashboard</h2>
+<div class="container py-4">
+    <h2 class="mb-4 text-dark fw-bold">Admin Dashboard</h2>
+  
+    <!-- Stat Cards -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-2 col-sm-6" *ngIf="true">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-people-fill display-6 text-primary mb-2"></i>
+            <p class="text-muted mb-1">Total Users</p>
+            <h5 class="fw-bold">25</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-door-open-fill display-6 text-success mb-2"></i>
+            <p class="text-muted mb-1">Total Rooms</p>
+            <h5 class="fw-bold">12</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-check-circle-fill display-6 text-success mb-2"></i>
+            <p class="text-muted mb-1">Confirmed</p>
+            <h5 class="fw-bold">{{ totalConfirmed }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-hourglass-split display-6 text-warning mb-2"></i>
+            <p class="text-muted mb-1">Pending</p>
+            <h5 class="fw-bold">{{ totalPending }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-x-circle-fill display-6 text-danger mb-2"></i>
+            <p class="text-muted mb-1">Rejected</p>
+            <h5 class="fw-bold">{{ totalRejected }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-2 col-sm-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <i class="bi bi-journal-check display-6 text-info mb-2"></i>
+            <p class="text-muted mb-1">Total Bookings</p>
+            <h5 class="fw-bold">{{ totalBookings }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- (Keep the existing Recent Bookings & Feedback sections as-is below this) -->
+  
+  
+    <!-- Recent Bookings -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-white fw-semibold">
+        Recent Bookings
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let booking of recentBookings" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>#{{ booking.bookingId }} - {{ booking.roomName }}</span>
+          <span class="badge 
+            bg-success" *ngIf="booking.status === 'Confirmed'">{{ booking.status }}</span>
+          <span class="badge 
+            bg-warning text-dark" *ngIf="booking.status === 'Pending'">{{ booking.status }}</span>
+          <span class="badge 
+            bg-danger" *ngIf="booking.status === 'Cancelled'">{{ booking.status }}</span>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Recent Feedback -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-white fw-semibold">
+        Recent Feedbacks
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let fb of recentFeedbacks" class="list-group-item">
+          <strong>{{ fb.username }}:</strong> "{{ fb.text }}"
+        </li>
+      </ul>
+    </div>
+  </div>
+  
