@@ -47,16 +47,18 @@
   </div>
   
 
-<div *ngIf="isBookingSuccessful" class="modal-backdrop-custom">
-  <div class="modal-content-custom">
-    <div class="modal-header-custom">
-      Booking Confirmed! 🎉
-    </div>
-    <div class="modal-body text-center">
-      <p>Your room has been successfully booked!</p>
-    </div>
-    <div class="modal-footer-custom">
-      <button class="btn btn-primary" (click)="ConfirmOkay()">Okay</button>
+  <div *ngIf="isBookingSuccessful" class="modal-backdrop-custom">
+    <div class="modal-content-custom">
+      <div class="modal-header-custom">
+        Booking Submitted! 🕒
+      </div>
+      <div class="modal-body text-center">
+        <p>Your booking request has been submitted successfully.</p>
+        <p>Please check back in an hour to see if it has been confirmed.</p>
+      </div>
+      <div class="modal-footer-custom">
+        <button class="btn btn-primary" (click)="ConfirmOkay()">Okay</button>
+      </div>
     </div>
   </div>
-</div>
+  
