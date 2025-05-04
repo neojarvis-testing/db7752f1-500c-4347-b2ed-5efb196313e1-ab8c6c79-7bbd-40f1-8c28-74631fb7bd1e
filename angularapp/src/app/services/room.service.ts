@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Room } from '../models/room.model';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Booking } from '../models/booking.model';
 import { BookingDto } from '../models/booking-dto.model';
 import { environment } from 'src/environments/environment';
@@ -37,8 +37,8 @@ export class RoomService {
     return this.client.put<Room>(`${this.apiUrl}/api/room/${roomId}`, room, {headers: this.getAuthHeaders()});
   }
 
-  deleteRoom(roomId:number):Observable<void>{
-    return this.client.delete<void>(`${this.apiUrl}/api/room/${roomId}`, {headers: this.getAuthHeaders()});
+  deleteRoom(roomId: number): Observable<void> {
+    return this.client.delete<void>(`${this.apiUrl}/api/room/${roomId}`, { headers: this.getAuthHeaders()})
   }
 
   

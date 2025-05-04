@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
@@ -76,12 +77,12 @@ export class AdminviewroomComponent implements OnInit {
       this.isDeleting = true;
       this.roomService.deleteRoom(this.roomToDelete.roomId).subscribe(
         () => {
-          // Success: Remove room from the list
-          this.rooms = this.rooms.filter(room => room.roomId !== this.roomToDelete?.roomId);
-          this.filteredRoomList = this.filteredRoomList.filter(room => room.roomId !== this.roomToDelete?.roomId);
+          this.loadAllRooms()
           this.closeDeleteModal();
         },
-        (error) => {
+        (error ) => {
+          console.log("error-----" , error);
+          
           this.isDeleting = false;
           if (error?.status === 400 && error?.error?.message) {
             this.errorMessage = error.error.message;  
