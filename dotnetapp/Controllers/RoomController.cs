@@ -96,6 +96,10 @@ namespace dotnetapp.Controllers
                 return Ok(new { status = "Success", message = "Room updated successfully" });
                  
             }
+             catch (RoomException ex)
+            {
+                return StatusCode(400, new { status = "Bad Request", ex.Message });
+            }
             catch (System.Exception ex)
             {
                 return StatusCode(500, ex.Message);

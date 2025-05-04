@@ -54,11 +54,12 @@ namespace dotnetapp.Services
                 return false;
             }
     
-            int roomCount = await _context.Rooms.CountAsync(r => r.HotelName == updatedRoom.HotelName);
+            int roomCount = await _context.Rooms.Where(r => r.HotelName.ToLower() == updatedRoom.HotelName.ToLower()).SumAsync(r => r.NoOfRooms);
+            // System.Console.WriteLine("-----------------");
+            // System.Console.WriteLine("room count" + roomCount);
             if (roomCount > 10)
             {
                 throw new RoomException("Total number of rooms for this hotel cannot exceed 10.");
-                return false;
             }
     
             _context.Entry(existingRoom).CurrentValues.SetValues(updatedRoom);
@@ -74,11 +75,10 @@ namespace dotnetapp.Services
                 return false;
             }
     
-            bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId);
+            bool isReferenced = await _context.Bookings.AnyAsync(b => b.RoomId == roomId && b.Status.ToLower() != "rejected");
             if (isReferenced)
             {
                 throw new RoomException("This room cannot be deleted because it is currently associated with existing bookings.");
-                return false;
             }
     
             _context.Rooms.Remove(room);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/services/room.service';
-declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-admineditroom',
@@ -25,6 +25,8 @@ export class AdmineditroomComponent implements OnInit {
   };
   errorMessage: string= '';
   roomId : string ;
+  showSuccessModal: boolean = false;
+
   constructor(private roomService: RoomService, private router : Router, private route : ActivatedRoute) { }
   ngOnInit(): void {
     this.roomId= this.route.snapshot.paramMap.get('id');
@@ -42,18 +44,10 @@ export class AdmineditroomComponent implements OnInit {
       this.roomService.updateRoom(this.room.roomId, this.room).subscribe(
         (res: any) => {
           console.log('Room updated successfully', res);
-          setTimeout(() => {
-            const modalElement = document.getElementById('successModal');
-            if (modalElement) {
-              const modal = new bootstrap.Modal(modalElement);
-
-              modal.show();
-            }
-          }, 0);
-
+          this.showSuccessModal = true; 
         },
-        (error: any) => {
-          console.log('Room addition failed', error);
+        (error) => {
+          console.log('Room addition failed --- ', error.error.message);
           this.errorMessage = error.error?.message || 'An unexpected error occurred. Please try again.';
         }
       );

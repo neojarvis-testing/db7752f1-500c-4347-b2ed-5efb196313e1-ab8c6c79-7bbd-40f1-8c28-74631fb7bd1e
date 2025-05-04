@@ -77,18 +77,20 @@
           </div>
         </div>
       </div>
-  
+      <div *ngIf="errorMessage">{{errorMessage}}</div>
       <button type="submit" class="btn btn-success mt-3 w-100">Update Room</button>
     </form>
   </div>
   
 
 
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div *ngIf="showSuccessModal" class="modal-backdrop fade show custom-modal-backdrop"></div>
+
+  <div *ngIf="showSuccessModal" class="modal d-block" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg border-0">
         <div class="modal-header bg-success text-white">
-          <h5 class="modal-title fw-bold" id="successModalLabel">Success</h5>
+          <h5 class="modal-title fw-bold">Success</h5>
         </div>
         <div class="modal-body text-center">
           <p class="fs-5 text-success">
@@ -96,9 +98,9 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" (click)="navigateToViewRooms()">Close</button>
-
+          <button type="button" class="btn btn-success w-100" (click)="navigateToViewRooms()">Close</button>
         </div>
       </div>
     </div>
   </div>
+  

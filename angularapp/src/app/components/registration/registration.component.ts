@@ -38,6 +38,7 @@
 //   }
 // }
 
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -98,7 +99,7 @@ export class RegistrationComponent {
             // console.log("User registered successfully", response);
             this.route.navigate(['login']);
           },
-          (error) => {
+          (error : HttpErrorResponse ) => {
             console.log('Registration failed', error);
             if (error.status === 400 && error.error?.message) {
               this.errorMessage = error.error.message;

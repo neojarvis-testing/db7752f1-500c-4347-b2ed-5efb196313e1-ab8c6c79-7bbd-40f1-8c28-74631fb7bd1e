@@ -17,8 +17,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authService.getToken();
-    let authReq = req;
 
+    let authReq = req;
     if (token) {
       authReq = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`)
@@ -26,16 +26,17 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(authReq).pipe(
-      catchError((error: HttpErrorResponse) => {
+      catchError((error) => {
         console.error('HTTP Error:', error);
 
-        if (error.status === 401 || error.error?.message === 'Unauthorized') {
-          console.warn('Token expired or invalid. Logging out...');
+        if (error.status === 401) {
+          console.warn('401 Unauthorized - Logging out...');
           this.authService.logout();
-         
+          // this.router.navigate(['/login']); 
         }
 
-        return throwError(() => error);
+        // Let other components handle the error (like 400)
+        return throwError(error);
       })
     );
   }
