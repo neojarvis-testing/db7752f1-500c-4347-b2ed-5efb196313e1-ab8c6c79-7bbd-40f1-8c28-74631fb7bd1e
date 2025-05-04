@@ -20,3 +20,9 @@ html, body {
     overflow: auto; 
   }
   
+  .active-link {
+    background-color: #007bff; 
+    color: white; 
+    font-weight: bold; 
+  }
+  
