@@ -132,5 +132,21 @@ namespace dotnetapp.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+        [HttpGet("dashboard-summary")]
+        public async Task<ActionResult<DashboardSummaryDto>> GetDashboardSummary()
+        {
+            try
+            {
+                var summary = await _roomService.GetDashboardSummaryAsync();
+                return Ok(summary);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving dashboard summary.", error = ex.Message });
+            }
+        }
+
     }
 }
