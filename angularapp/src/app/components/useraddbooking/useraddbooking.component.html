@@ -2,7 +2,7 @@
 
     <h3 class="text-primary mb-3">Book Your Room</h3>
   
-    <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)" class="card p-4 shadow rounded-3">
+    <form #bookingForm="ngForm"  class="card p-4 shadow rounded-3">
   
       <div *ngIf="!isRoomAvailable" class="alert alert-danger">Room not available for selected dates.</div>
   
@@ -39,7 +39,7 @@
       </div>
       <div class="d-flex justify-content-end gap-2">
         <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="btn btn-success" data-bs-toggle="modal" (click)="onSubmit()">Submit</button>
+        <button type="submit" class="btn btn-success"  (click)="onSubmit()">Submit</button>
       </div>
   
     </form>
@@ -47,21 +47,16 @@
   </div>
   
 
-<div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-labelledby="bookingSuccessLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content shadow-lg rounded-3">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="bookingSuccessLabel">Booking Confirmed! 🎉</h5>
-          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-        </div>
-        <div class="modal-body text-center">
-          <h4 class="mb-3">Your room has been successfully booked!</h4>
-          <p class="lead">You will be redirected shortly.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="ConfirmOkay()">Okay</button>
-        </div>
-      </div>
+<div *ngIf="isBookingSuccessful" class="modal-backdrop-custom">
+  <div class="modal-content-custom">
+    <div class="modal-header-custom">
+      Booking Confirmed! 🎉
+    </div>
+    <div class="modal-body text-center">
+      <p>Your room has been successfully booked!</p>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn btn-primary" (click)="ConfirmOkay()">Okay</button>
     </div>
   </div>
-  
+</div>

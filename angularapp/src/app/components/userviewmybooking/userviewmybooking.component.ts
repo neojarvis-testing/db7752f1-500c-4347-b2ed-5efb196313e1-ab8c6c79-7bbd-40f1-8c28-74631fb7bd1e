@@ -14,6 +14,7 @@ export class UserviewmybookingComponent implements OnInit {
   rooms: BookingDto[] = []; 
   userId : string;
   bookingId: string;
+  isDeleteModalVisible: boolean = false;
   constructor(private router: Router , private service : RoomService, private authService : AuthService) { }
 
   ngOnInit(): void {
@@ -30,21 +31,20 @@ export class UserviewmybookingComponent implements OnInit {
     )
   }
 
-  confirmDelete(id: number){
-    this.bookingId  =id.toString();
-    const modalElement = document.getElementById('deleteConfirmModal');
-        if (modalElement) {
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        }
+  confirmDelete(id: number) {
+    this.bookingId = id.toString();
+    this.isDeleteModalVisible = true;
   }
-  deleteConfirmed(){
-      this.service.deleteBooking(this.bookingId).subscribe(
-        ()=>{
-          console.log();
-          
-        }
-      )
+  
+  deleteConfirmed() {
+    this.service.deleteBooking(this.bookingId).subscribe(() => {
+      this.loadBookings(); 
+      this.isDeleteModalVisible = false;
+    });
+  }
+  
+  cancelDelete() {
+    this.isDeleteModalVisible = false;
   }
 }
 

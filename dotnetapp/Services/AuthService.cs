@@ -34,14 +34,14 @@ namespace dotnetapp.Services
 
         public async Task<(int, string)> Registration(User model, string role)
         {
-            // if (role != UserRoles.Admin && role != UserRoles.User)
-            //     return (0, "Invalid role provided. Please use either 'Admin' or 'User'.");
+            if (role != "Admin" && role != "User")
+                return (0, "Invalid role provided. Please use either 'Admin' or 'User'.");
 
             var userExists = await userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return (0, "User already exists");
 
-            System.Console.WriteLine("User Details "+  model);
+            // System.Console.WriteLine("User Details "+  model);
             var user = new ApplicationUser
             {
               
@@ -58,8 +58,8 @@ namespace dotnetapp.Services
                 }
 
            
-            // if (!await roleManager.RoleExistsAsync(role))
-            //     await roleManager.CreateAsync(new IdentityRole(role));
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
 
             await userManager.AddToRoleAsync(user, role);
             
