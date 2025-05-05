@@ -17,7 +17,6 @@ namespace dotnetapp.Services
 {
     public class AuthService : IAuthService
     {
-        
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
@@ -73,7 +72,7 @@ namespace dotnetapp.Services
         {
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return (0, "Invalid email");
+                return (0, "Couldn't find your account");
 
             if (!await userManager.CheckPasswordAsync(user, model.Password))
                 return (0, "Invalid password");

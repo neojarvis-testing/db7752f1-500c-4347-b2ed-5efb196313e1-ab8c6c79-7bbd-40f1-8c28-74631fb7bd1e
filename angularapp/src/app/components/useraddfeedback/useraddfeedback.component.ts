@@ -78,7 +78,10 @@ export class UseraddfeedbackComponent implements OnInit {
   onDelete(feedbackId: number): void {
     if (feedbackId) {
       this.feedbackService.deleteFeedback(feedbackId).subscribe({
-        next: () => this.loadUserFeedbacks(),
+        next: ()=> {
+          console.log('Feedback deleted successfully.');
+          this.loadUserFeedbacks();
+      },
         error: (error) => console.error('Failed to delete feedback:', error)
       });
     }
