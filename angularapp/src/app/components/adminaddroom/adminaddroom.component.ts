@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/services/room.service';
 
-declare var bootstrap: any;
 @Component({
   selector: 'app-adminaddroom',
   templateUrl: './adminaddroom.component.html',

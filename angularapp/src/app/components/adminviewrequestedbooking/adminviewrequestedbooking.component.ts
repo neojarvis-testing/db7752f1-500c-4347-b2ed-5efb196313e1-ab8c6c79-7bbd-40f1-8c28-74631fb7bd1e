@@ -62,9 +62,9 @@ export class AdminviewrequestedbookingComponent implements OnInit {
     const updatedBooking: Booking = {
       ...booking,
       status: 'Rejected'
-    };
+  };
   
-    this.bookingService.updateBooking(booking.bookingId.toString(), updatedBooking).subscribe({
+  this.bookingService.updateBooking(booking.bookingId.toString(), updatedBooking).subscribe({
       next: (response) => {
         booking.status = 'Rejected'; 
       },

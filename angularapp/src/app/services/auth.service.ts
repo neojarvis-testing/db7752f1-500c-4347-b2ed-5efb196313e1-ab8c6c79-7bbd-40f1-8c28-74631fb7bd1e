@@ -19,6 +19,8 @@ export class AuthService {
   private tokenKey = 'authToken';
   private role: string;
   private userName: string;
+
+  
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userIdSubject = new BehaviorSubject<number | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
