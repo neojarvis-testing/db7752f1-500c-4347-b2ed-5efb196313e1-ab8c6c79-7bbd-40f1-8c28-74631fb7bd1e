@@ -32,11 +32,11 @@ export class RoomService {
   }
 
   updateRoom(roomId: number, room: Room): Observable<Room> {
-    return this.client.put<Room>(`${this.apiUrl}/api/room/${roomId}`, room);
+    return this.client.put<Room>(`${this.apiUrl}/api/room/${roomId}`, room, { responseType: 'text' as 'json' });
   }
 
   deleteRoom(roomId: number): Observable<void> {
-    return this.client.delete<void>(`${this.apiUrl}/api/room/${roomId}`);
+    return this.client.delete<void>(`${this.apiUrl}/api/room/${roomId}`, { responseType: 'text' as 'json' });
   }
 
   getAllBookings(): Observable<BookingDto[]> {
@@ -52,10 +52,10 @@ export class RoomService {
   }
 
   updateBooking(bookingId: string, booking: Booking): Observable<Booking> {
-    return this.client.put<Booking>(`${this.apiUrl}/api/booking/${bookingId}`, booking);
+    return this.client.put<Booking>(`${this.apiUrl}/api/booking/${bookingId}`, booking, { responseType: 'text' as 'json' });
   }
 
   deleteBooking(bookingId: string): Observable<void> {
-    return this.client.delete<void>(`${this.apiUrl}/api/booking/${bookingId}`);
+    return this.client.delete<void>(`${this.apiUrl}/api/booking/${bookingId}`, { responseType: 'text' as 'json' });
   }
 }
