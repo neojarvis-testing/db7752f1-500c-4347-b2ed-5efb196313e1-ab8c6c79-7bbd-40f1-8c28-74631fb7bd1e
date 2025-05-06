@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Feedback } from '../models/feedback.model';
 import { Observable,throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { UserDTO } from '../models/user-dto.model';

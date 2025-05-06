@@ -21,11 +21,6 @@ export class AuthService {
   private userName: string;
 
   
-  private userRoleSubject = new BehaviorSubject<string | null>(null);
-  private userIdSubject = new BehaviorSubject<number | null>(null);
-  userRole$ = this.userRoleSubject.asObservable();
-  userId$ = this.userIdSubject.asObservable();
-
   constructor(private http: HttpClient, private router: Router) { }
 
   register(user: User): Observable<any> {
@@ -45,7 +40,7 @@ export class AuthService {
           localStorage.setItem('role', this.role);
           localStorage.setItem('UserName', this.userName);
           localStorage.setItem('UserId', userId);
-          this.userRoleSubject.next(this.role);
+         
         }
       })
     );
@@ -67,8 +62,6 @@ export class AuthService {
     localStorage.removeItem('role');
     localStorage.removeItem('UserName');
     localStorage.removeItem('UserId');
-    this.userRoleSubject.next(null);
-    this.userIdSubject.next(null);
     this.router.navigate(['/login']);
   }
 
