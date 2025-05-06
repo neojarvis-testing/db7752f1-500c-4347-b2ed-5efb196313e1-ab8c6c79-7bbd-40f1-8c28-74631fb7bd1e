@@ -29,7 +29,7 @@ export class FeedbackService {
   }
 
   deleteFeedback(feedbackId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/api/feedback/${feedbackId}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/api/feedback/${feedbackId}`, { responseType: 'text' as 'json' }).pipe(
       catchError(this.handleError)
     );
   }
